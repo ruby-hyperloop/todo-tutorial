@@ -1,39 +1,57 @@
-## Chapter 3 - The Footer Component
+## Chapter 4 - A Reusable Edit Component
 
-Now that we have a FooterLink component we can use it to build a Footer component.  
+The ability to select a title and change it is used in two places in our Todo app:  In the top bar where you add a new component, and by double clicking on a new component.
 
-![](todo-chapter-3.png?raw=true)
+![](todo-chapter-4.png?raw=true)
 
-Again we will use the generator to build our component template:
+So we would like create one component that will work in both places.  
 
-run `bundle exec rails g reactrb:component Footer`
+Our component will take a Todo model as input.
 
-The Footer component needs to know the number of incomplete items, and the currently selected link, so these will become the params to the component.
+The user may input or change the title of the Todo, and the Todo will be saved when the user hits the enter key (key 13).
 
-The render method will display count, and each of the links.
+If the user moves the focus out of the input box, the edit will be cancelled.
 
-The resulting component will look like this:
+To implement this we will introduce some new concepts:
+
++ Reading and Writing active record models
+
++ Event Handlers - where you attach code to incoming browser events such as 'blur', 'change', and 'keydown'.
+
++ Event Emitters - which is one of several forms of callbacks supported by react.rb
+
+Our components params will be:
+
++ the Todo model being edited,
+
++ an event emitter that will tell the calling component when the model has been saved,
+
++ and an event emitter for when the edit is cancelled.
+
+You can either use the react generator like we did before, or just create a new file in the components directory and add this code:
 
 ```ruby
 module Components
-  class Footer < React::Component::Base
+  class EditItem < React::Component::Base
 
-    param :current_filter,    type: Symbol
-    param :incomplete_count,  type: Integer
+    # Your active record models are passed like any other param
+    param :todo, type: Todo
+    # The prefix '_on' followed by camel case allows proc to be used as an event emitter
+    param :_onCancel, type: Proc, allow_nil: true  
+    param :_onSave, type: Proc, allow_nil: true
 
     def render
-      footer(class: :footer) do # render a footer tag
-        # display the todo count
-        #   notice we can shorten span(class: 'todo-count') haml style
-        span.todo_count do
-          "#{params.incomplete_count} item#{'s' unless params.incomplete_count == 1} left"
-        end
-        # then display an unsorted list of the three footer links.
-        #   again we pass the 'filter' class 'haml style'
-        ul.filters do
-          li { FooterLink(filter: :all, current_filter: params.current_filter) }
-          li { FooterLink(filter: :completed, current_filter: params.current_filter) }
-          li { FooterLink(filter: :active, current_filter: params.current_filter) }
+      # the component consists of an input tag (of class 'edit')
+      # and three event handlers:
+      input.edit(value: params.todo.title, placeholder: "what is left todo?").
+      on(:blur) do
+        params._onCancel                   # raise :cancel event
+      end.on(:change) do |e|
+        params.todo.title = e.target.value # as the user types update the title
+      end.on(:key_down) do |e|
+        if e.key_code == 13
+          params.todo.save
+          params._onSave                   # raises :save event
         end
       end
     end
@@ -41,9 +59,6 @@ module Components
 end
 ```
 
-Notice how the param `current_filter`  is getting passed from higher level components down to lower level components.  This is the class react pattern *data moves from the top most component down*.
-
-
 ### Testing
 
-run `bundle exec rspec spec/chapter-3.rb -f d`
+run `bundle exec rspec spec/chapter-4.rb -f d`
