@@ -41,7 +41,7 @@ module Components
 end
 ```
 
-Notice how the param `current_scope`  is getting passed from higher level components down to lower level components.  This is the class react pattern *data moves from the top most component down*.
+Notice how the param `current_filter`  is getting passed from higher level components down to lower level components.  This is the class react pattern *data moves from the top most component down*.
 
 
 ### Testing
