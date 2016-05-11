@@ -1,8 +1,8 @@
-## Chapter 7 - Putting it all together
+## Chapter 6 - Putting it all together
 
 Now we will combine our EditItem component, our TodoItem component, and our Footer component into our top level app.
 
-![](todo-chapter-7.png?raw=true)
+![](todo-chapter-6.png?raw=true)
 
 For our last component we need a couple of new concepts:
 
