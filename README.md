@@ -2,8 +2,6 @@
 
 Now we will combine our EditItem component, our TodoItem component, and our Footer component into our top level app.
 
-![](todo-chapter-6.png?raw=true)
-
 For our last component we need a couple of new concepts:
 
 + We need a "global" state variable, that is accessible as a class level variable.
