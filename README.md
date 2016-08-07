@@ -1,78 +1,29 @@
-## Chapter 7 - Turning on synchromesh
+## Chapter 8 - Conclusion
 
-In chapter 6 we put our final pieces in place.  Our app runs fine, but if you open your app in two windows you will see that
-changes in one browser are not reflected in the other, unless you refresh.
+Well we hope you have has as much fun seeing this come together as we had putting it together!
 
-To enable automatic synchronization add a synchromesh initializer to `app/config/initializers` like this:
+If you skipped the tutorial and just want to see the app in its final state are in the right place.
 
-```ruby
-# app/config/initializers/synchromesh.rb
-Synchromesh.configuration do |config|
-  config.transport = :simple_poller
-end
-```
+If you have jumped right to end make sure you do a `bundle install` and a `rake db:migrate` before powering up the server.
 
-Now restart the server, and visit the todo page on two different browsers.  You should see any changes
-in one browser reflected in the other.
+In summary here is what we did:
 
-Currently Synchromesh has two transports:  `:simple_poller`, and `:pusher`.  The simple_poller sets up each browser
-to ping the server and fetch any data changes.  Nice and easy for debug, but in real life you will want to use
-websockets.
+1. We used `reactrb-rails-generator` to install all the bits and pieces we needed in the Gemfile, config files, etc.
 
-`www.pusher.com` provides a freemium websocket transport service, that you can use to try out websockets, and there is
-a gem called `Pusher-Fake` which will use the pusher protocol, but run the websocket service inside your app.  
+2. We added a simple `Todo` rails model.  We wanted the model shared with the client so we moved it to the `app/models/public` directory (instead of just `app/models`)
 
-So using `Pusher-Fake` you can get a feel for how well `Pusher` works without even signing up for a free account.
+3. We then built 5 react components and put them in the `app/views/components` directory.  Our component structure uses a simple *flux loop* so that our data flows peacefully from the top level component out to the display, and then gets updated external forces interact with the system.
 
-Setting up `Pusher` and `Pusher-Fake` has the following steps:
+4. In the course of building our components we used `rspec` and some handy test helpers to run each component through its paces.  Like the components and models the specs cooperatively run on the server and the client, and we can use the standard ruby tool chain with gems like `FactoryGirl`.
 
-1. Add the gems
-2. Update `application.js` manifest
-3. Update the `synchromesh.rb` initializer
+5. When we had all our components built, we added a rails route, and a simple controller that rendered our top level component.  
 
-#### Adding the gems
+6. Finally we enabled `Synchromesh` which can use polling or websockets to keep our data syncronized across clients.
 
-Add `gem 'pusher'` and `gem 'pusher-fake', :groups => [:development, :test]` to your Gemfile.
+7. Our components used a total of 98 lines of code, we have a 4 line Todo model, and a 5 line controller.  Plus we added 1 route.  That is a total of 109 lines of code, all written in lovely Ruby.
 
-Don't forget to `bundle install`
+While our Todo app is simple it uses all the key features of `Reactrb` and `Reactive-Record`.  This structure is scalable is is currently used in a medium sized app with 100's of components, and a large complex model structure.
 
-#### Update `application.js` manifest
+Reactrb extends the capabilities of existing frameworks like Rails, so you can integrate easily into existing apps, and use all the frameworks capabilities.
 
-For convenience synchromesh includes a copy of the pusher.com client js file.
-
-In `app/assets/javascripts/application.js` add the line `//= require synchromesh/pusher` immediately *before* the line that reads `Opal.load('components');`
-
-This will pull in the pusher.com client code.  You can also consult the pusher.com website, and follow the instructions there to get a copy of the pusher client if you prefer.
-
-#### Update the `synchromesh` initializer
-
-```ruby
-require 'pusher'
-require 'pusher-fake'
-
-# Pusher-Fake grabs its initial values from the Pusher config so
-# we need to set them up first.
-
-Pusher.app_id = "MY_TEST_ID"       # If you have a pusher account you can put
-Pusher.key =    "MY_TEST_KEY"      # your account values here, but these (or
-Pusher.secret = "MY_TEST_SECRET"   # any values) will work fine with pusher-fake
-
-# The next line actually fires up the pusher-fake websocket server, so we only
-# want it to execute in development.  During testing (rspec for example) you
-# can require 'pusher-fake/support/rspec' in your spec_helper.rb file (see the
-# Pusher-Fake gem documentation for details)
-
-require 'pusher-fake/support/base' if Rails.env.development?
-
-Synchromesh.configuration do |config|
-  # set the transport to :pusher
-  config.transport = :pusher
-  # give a channel prefix (so that you can use pusher for other things too)
-  config.channel_prefix = "synchromesh"
-  # set up the options.  If we are not in test we merge in the Pusher-Fake
-  # configuration (i.e. host and ports and stuff.)
-  opts = {app_id: Pusher.app_id, key: Pusher.key, secret: Pusher.secret}
-  opts.merge!(PusherFake.configuration.web_options) unless Rails.env.production?
-  config.opts = opts
-end
-```
+Because the persistence model is active-record, you can build new UI components, or even whole new front-ends while running the same backend.
