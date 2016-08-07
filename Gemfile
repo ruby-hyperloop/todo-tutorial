@@ -77,5 +77,5 @@ gem 'therubyracer', platforms: :ruby
 gem 'react-router-rails', '~>0.13.3'
 gem 'reactive-router'
 gem 'reactive-record', "0.7.43"
-gem 'sprockets', '3.6.0'
-gem 'synchromesh', path: "../synchromesh" #git: 'https://github.com/reactrb/synchromesh.git'
+gem 'sprockets'
+gem 'synchromesh', git: 'https://github.com/reactrb/synchromesh.git'

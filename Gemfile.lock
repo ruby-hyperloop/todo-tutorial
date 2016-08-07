@@ -4,8 +4,9 @@ GIT
   specs:
     database_cleaner (1.5.3)
 
-PATH
-  remote: ../synchromesh
+GIT
+  remote: https://github.com/reactrb/synchromesh.git
+  revision: 40e77f95e11ddb7a6844ff639dba678f5fc2726d
   specs:
     synchromesh (0.4.0)
       activerecord (>= 0.3.0)
