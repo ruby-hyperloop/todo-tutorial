@@ -14,6 +14,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require synchromesh/pusher
 Opal.load('components');
 //= require turbolinks
 //= require_tree .

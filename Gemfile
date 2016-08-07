@@ -70,6 +70,8 @@ group :test do
   gem 'unparser'
 end
 
+gem 'pusher'
+gem 'pusher-fake', :groups => [:development, :test]
 gem 'reactive-ruby'
 gem 'react-rails', '~> 1.3.0'
 gem 'opal-rails', '0.8.1'
