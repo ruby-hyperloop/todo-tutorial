@@ -1,10 +1,8 @@
 ## Chapter 8 - Conclusion
 
-Well we hope you have has as much fun seeing this come together as we had putting it together!
+Well we hope you have had as much fun seeing this come together as we had putting it together!
 
-If you skipped the tutorial and just want to see the app in its final state are in the right place.
-
-If you have jumped right to end make sure you do a `bundle install` and a `rake db:migrate` before powering up the server.
+If you skipped the tutorial and just want to see the app in its final state are in the right place.  Clone the repo, do a `git checkout chapter-8-conclusion` and make sure you do a `bundle install` and a `rake db:migrate` before powering up the server.
 
 In summary here is what we did:
 
@@ -24,6 +22,6 @@ In summary here is what we did:
 
 While our Todo app is simple it uses all the key features of `Reactrb` and `Reactive-Record`.  This structure is scalable is is currently used in a medium sized app with 100's of components, and a large complex model structure.
 
-Reactrb extends the capabilities of existing frameworks like Rails, so you can integrate easily into existing apps, and use all the frameworks capabilities.
+Reactrb extends the capabilities of existing frameworks like Rails, so you can integrate easily into existing apps, and use all the framework's capabilities. And because the persistence model is active-record, you can build new UI components, or even whole new front-ends while running the same backend.
 
-Because the persistence model is active-record, you can build new UI components, or even whole new front-ends while running the same backend.
+Reactrb also works well on even smaller apps and can be used for doing the rendering on static websites, so you can use it from tiny static pages, to full scale production apps.
