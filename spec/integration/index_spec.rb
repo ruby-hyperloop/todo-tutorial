@@ -29,6 +29,7 @@ describe 'the todo app', :js => true do
         input.native.send_keys(:return)
         wait_for_ajax
       end
+
       Todo.all.count.should eq(2)
       Todo.all.last.title.should eq("new todo - 1")
       page.should have_content("new todo - 1")

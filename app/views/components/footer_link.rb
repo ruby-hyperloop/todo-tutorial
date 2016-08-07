@@ -31,7 +31,7 @@ module Components
     def render
       a(class: (params.filter == params.current_filter ? :selected : '')) do
         params.filter.camelcase
-      end
+      end.on(:click) { Index.filter! params.filter }
     end
 
   end
