@@ -12,5 +12,6 @@ end
 require 'reactive-router'
 require 'react_router'
 require 'reactive-record'
+require 'synchromesh'
 require '_react_public_models'
 require_tree './components'

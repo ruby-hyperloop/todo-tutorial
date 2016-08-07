@@ -72,8 +72,10 @@ end
 
 gem 'reactive-ruby'
 gem 'react-rails', '~> 1.3.0'
-gem 'opal-rails', '>= 0.8.1'
+gem 'opal-rails', '0.8.1'
 gem 'therubyracer', platforms: :ruby
 gem 'react-router-rails', '~>0.13.3'
 gem 'reactive-router'
-gem 'reactive-record'
+gem 'reactive-record', "0.7.43"
+gem 'sprockets', '3.6.0'
+gem 'synchromesh', path: "../synchromesh" #git: 'https://github.com/reactrb/synchromesh.git'

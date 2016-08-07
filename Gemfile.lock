@@ -4,6 +4,13 @@ GIT
   specs:
     database_cleaner (1.5.3)
 
+PATH
+  remote: ../synchromesh
+  specs:
+    synchromesh (0.4.0)
+      activerecord (>= 0.3.0)
+      reactive-record (>= 0.7.43)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -89,14 +96,14 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.11)
     erubis (2.7.0)
-    execjs (2.6.0)
+    execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
     ffi (1.9.10)
-    globalid (0.3.6)
+    globalid (0.3.7)
       activesupport (>= 4.1.0)
     hike (1.2.3)
     i18n (0.7.0)
@@ -119,14 +126,15 @@ GEM
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     method_source (0.8.2)
-    mime-types (3.0)
+    mime-types (3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0221)
-    mini_portile2 (2.0.0)
-    minitest (5.8.4)
+    mime-types-data (3.2016.0521)
+    mini_portile2 (2.1.0)
+    minitest (5.9.0)
     multi_json (1.12.0)
-    nokogiri (1.6.7.2)
-      mini_portile2 (~> 2.0.0.rc2)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     opal (0.8.0)
       hike (~> 1.2)
       sourcemap (~> 0.1.0)
@@ -137,8 +145,8 @@ GEM
     opal-browser (0.2.0)
       opal
       paggio
-    opal-jquery (0.4.1)
-      opal (>= 0.7.0, < 0.10.0)
+    opal-jquery (0.4.2)
+      opal (>= 0.7.0, < 0.11.0)
     opal-rails (0.8.1)
       jquery-rails
       opal (~> 0.8.0)
@@ -152,6 +160,7 @@ GEM
     paggio (0.2.6)
     parser (2.3.1.0)
       ast (~> 2.2)
+    pkg-config (1.1.7)
     poltergeist (1.9.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -195,7 +204,7 @@ GEM
       activesupport (= 4.2.6)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (11.1.2)
+    rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
     react-rails (1.3.3)
@@ -217,7 +226,7 @@ GEM
       therubyracer
     reactive-router (0.7.11)
       reactive-ruby
-    reactive-ruby (0.7.40)
+    reactive-ruby (0.7.41)
       opal (= 0.8.0)
       opal-activesupport (>= 0.2.0)
       opal-browser (= 0.2.0)
@@ -291,7 +300,7 @@ GEM
       ref
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.2)
+    tilt (2.0.5)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -330,7 +339,7 @@ DEPENDENCIES
   factory_girl_rails
   jbuilder (~> 2.0)
   jquery-rails
-  opal-rails (>= 0.8.1)
+  opal-rails (= 0.8.1)
   parser
   poltergeist
   pry
@@ -339,7 +348,7 @@ DEPENDENCIES
   rails (= 4.2.6)
   react-rails (~> 1.3.0)
   react-router-rails (~> 0.13.3)
-  reactive-record
+  reactive-record (= 0.7.43)
   reactive-router
   reactive-ruby
   reactive_rails_generator
@@ -356,7 +365,9 @@ DEPENDENCIES
   shoulda
   shoulda-matchers
   spring-commands-rspec
+  sprockets (= 3.6.0)
   sqlite3
+  synchromesh!
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)
@@ -364,4 +375,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.6
+   1.12.5
