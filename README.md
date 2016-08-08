@@ -10,7 +10,7 @@ In summary here is what we did:
 
 2. We added a simple `Todo` rails model.  We wanted the model shared with the client so we moved it to the `app/models/public` directory (instead of just `app/models`)
 
-3. We then built 5 react components and put them in the `app/views/components` directory.  Our component structure uses a simple *flux loop* so that our data flows peacefully from the top level component out to the display, and then gets updated external forces interact with the system.
+3. We then built 5 react components and put them in the `app/views/components` directory.  Our component structure uses a simple *flux loop* so that our data flows peacefully from the top level component out to the display, and then gets updated as external forces interact with the system.
 
 4. In the course of building our components we used `rspec` and some handy test helpers to run each component through its paces.  Like the components and models the specs cooperatively run on the server and the client, and we can use the standard ruby tool chain with gems like `FactoryGirl`.
 
@@ -20,7 +20,7 @@ In summary here is what we did:
 
 7. Our components used a total of 98 lines of code, we have a 4 line Todo model, and a 5 line controller.  Plus we added 1 route.  That is a total of 109 lines of code, all written in lovely Ruby.
 
-While our Todo app is simple it uses all the key features of `Reactrb` and `Reactive-Record`.  This structure is scalable is is currently used in a medium sized app with 100's of components, and a large complex model structure.
+While our Todo app is simple it uses all the key features of `Reactrb` and `Reactive-Record`.  This structure is scalable and is currently used in a medium sized app with 100's of components, and a large complex model structure.
 
 Reactrb extends the capabilities of existing frameworks like Rails, so you can integrate easily into existing apps, and use all the framework's capabilities. And because the persistence model is active-record, you can build new UI components, or even whole new front-ends while running the same backend.
 
