@@ -9,12 +9,7 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//= require 'components'
-//= require 'react_ujs'
-//
 //= require jquery
 //= require jquery_ujs
-//= require synchromesh/pusher
-Opal.load('components');
-//= require turbolinks
-//= require_tree .
+//= require hyperloop-loader
+Opal.OpalHotReloader.$listen()

@@ -23,3 +23,24 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+
+# default: &default
+#   adapter: mysql2
+#   encoding: utf8
+#   username: root
+#   password:
+#   host: 127.0.0.1
+#   port: 3306
+#
+# development:
+#   <<: *default
+#   database: development_todo_tutorial
+#
+# test:
+#   <<: *default
+#   database: test_todo_tutorial
+#
+# production:
+#   <<: *default
+#   database: production_todo_tutorial

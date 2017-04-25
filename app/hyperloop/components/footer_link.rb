@@ -1,5 +1,5 @@
 module Components
-  class FooterLink < React::Component::Base
+  class FooterLink < Hyperloop::Component
 
     # Params are how data gets passed into the component
 

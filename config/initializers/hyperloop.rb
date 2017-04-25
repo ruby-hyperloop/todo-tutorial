@@ -13,11 +13,14 @@ Pusher.secret = "MY_TEST_SECRET"   # any values) will work fine with pusher-fake
 # can require 'pusher-fake/support/rspec' in your spec_helper.rb file (see the
 # Pusher-Fake gem documentation for details)
 
-require 'pusher-fake/support/base' if Rails.env.development?
+require 'pusher-fake/support/base' unless Rails.env.production?
 
-Synchromesh.configuration do |config|
+Hyperloop.configuration do |config|
+  config.compress_system_assets = false
   # set the transport to :pusher
   config.transport = :pusher
+  #config.transport = :simple_poller
+  #config.transport = :action_cable
   # give a channel prefix (so that you can use pusher for other things too)
   config.channel_prefix = "synchromesh"
   # set up the options.  If we are not in test we merge in the Pusher-Fake
@@ -25,4 +28,6 @@ Synchromesh.configuration do |config|
   opts = {app_id: Pusher.app_id, key: Pusher.key, secret: Pusher.secret}
   opts.merge!(PusherFake.configuration.web_options) unless Rails.env.production?
   config.opts = opts
+  config.import 'opal_hot_reloader' if Rails.env.developement?
+  config.console_auto_start = false if Rails.env.test?
 end

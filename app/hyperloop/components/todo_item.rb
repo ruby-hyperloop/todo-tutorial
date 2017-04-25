@@ -1,8 +1,9 @@
+require 'models/todo'
 module Components
-  class TodoItem < React::Component::Base
+  class TodoItem < Hyperloop::Component
 
     param :todo, type: Todo
-    define_state editing: false
+    state editing: false
 
     def render
       li.todo_item do
@@ -10,7 +11,7 @@ module Components
         if state.editing
           # the EditItem will emit either the save or cancel events
           # when editing completes.  We use this to stop editing
-          EditItem(todo: todo).
+          EditItem(todo: params.todo).
           on(:save) { state.editing! false }.
           on(:cancel) { state.editing! false }
         else

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'chapter 1', :js => true do
 
-  it 'todo.rb has been moved to the models/public folder (made public)' do
+  it 'todo.rb has been moved to the hyperloop/models folder (made public)' do
 
     # Build and mount a test component that will render the
     # todo count and the first todos title.
@@ -12,7 +12,7 @@ describe 'chapter 1', :js => true do
     # in advance
 
     mount "TodoTest" do
-      class TodoTest < React::Component::Base
+      class TodoTest < Hyperloop::Component
         def render
           "The Todo model is #{'not' unless defined?(Todo) && (Todo < ActiveRecord::Base)} public!"
         end
@@ -22,44 +22,40 @@ describe 'chapter 1', :js => true do
 
   end
 
-  it 'reactive-record has been installed' do
+  it 'hyperloop models are running' do
 
     5.times { FactoryGirl.create(:todo) }
 
     mount "RRTest" do
-      class RRTest < React::Component::Base
+      class RRTest < Hyperloop::Component
         def render
           "#{Todo.all.count} Todos.  First Title = #{Todo.all.first.title}"
         end
       end
     end
-
     page.should have_content("#{Todo.all.count} Todos.  First Title = #{Todo.all.first.title}")
 
   end
 
-  it 'reactive-router has been installed' do
+  it 'hyper-router has been installed' do
     mount "RouterTest" do
 
-      class RouterTest
-        include React::Router
+      class RouterTest < Hyperloop::Router
+        prerender_path :url_path, default: '/'
+        history :browser
 
-        routes(path: "/:react_test/:driver_id") do
-          route(path: "test", name: :test, handler: Test)
-          redirect(from: "/:react_test/:driver_id", to: :test)
-        end
-
-        def show
-          route_handler
+        route do
+          DIV do
+            Route('/:react_test/:driver_id', mounts: Home)
+          end
         end
       end
 
-      class Test < React::Component::Base
-        def render
+      class Home < Hyperloop::Router::Component
+        render do
           "Testing Testing 123"
         end
       end
-
     end
 
     page.should have_content("Testing Testing 123")

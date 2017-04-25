@@ -1,8 +1,9 @@
 module Components
-  class Footer < React::Component::Base
+  class Footer < Hyperloop::Component
 
-    param :current_filter,    type: Symbol
-    param :incomplete_count,  type: Integer
+    include HyperRouter::ComponentMethods
+
+    param :incomplete_count, type: Integer
 
     def render
       footer(class: :footer) do # render a footer tag
@@ -14,9 +15,9 @@ module Components
         # then display an unsorted list of the three footer links.
         #   again we pass the 'filter' class 'haml style'
         ul.filters do
-          li { FooterLink(filter: :all, current_filter: params.current_filter) }
-          li { FooterLink(filter: :completed, current_filter: params.current_filter) }
-          li { FooterLink(filter: :active, current_filter: params.current_filter) }
+          li { NavLink('/all', active_class: :selected) { 'All' }}
+          li { NavLink('/completed', active_class: :selected)  { 'Completed' }}
+          li { NavLink('/active', active_class: :selected) { 'Active' }}
         end
       end
     end

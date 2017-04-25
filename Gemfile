@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+#gem 'rails', '4.2.6'
+gem 'rails', '~>5.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'puma'
+#gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -42,42 +44,52 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
-group :development do
-  gem 'reactive_rails_generator'
-end
+# group :development do
+#   gem 'reactive_rails_generator'
+# end
 
-group :test do
-  gem "rspec"
-  gem "rspec-rails"
-  gem "rspec-mocks"
-  gem "rspec-expectations"
-  gem "pry"
-  gem 'pry-rescue'#, git: "https://github.com/joallard/pry-rescue.git"
-  gem 'pry-stack_explorer'
-  gem "factory_girl_rails"
-  gem 'shoulda'
-  gem 'shoulda-matchers'
-  gem 'rspec-its'
-  gem 'rspec-collection_matchers'
-  gem 'database_cleaner', git: "https://github.com/DatabaseCleaner/database_cleaner.git"
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem "poltergeist"
-  gem 'spring-commands-rspec'
-  gem 'chromedriver-helper'
-  gem 'rspec-steps'
-  gem 'parser'
-  gem 'unparser'
-end
+# group :test do
+#   gem "rspec"
+#   gem "rspec-rails"
+#   gem "rspec-mocks"
+#   gem "rspec-expectations"
+#   gem "pry"
+#   gem 'pry-rescue'#, git: "https://github.com/joallard/pry-rescue.git"
+#   gem 'pry-stack_explorer'
+#   gem "factory_girl_rails"
+#   gem 'shoulda'
+#   gem 'shoulda-matchers'
+#   gem 'rspec-its'
+#   gem 'rspec-collection_matchers'
+#   gem 'database_cleaner', git: "https://github.com/DatabaseCleaner/database_cleaner.git"
+#   gem 'capybara'
+#   gem 'selenium-webdriver'
+#   gem "poltergeist"
+#   gem 'spring-commands-rspec'
+#   gem 'chromedriver-helper'
+#   gem 'rspec-steps'
+#   gem 'parser'
+#   gem 'unparser'
+# end
 
 gem 'pusher'
 gem 'pusher-fake', :groups => [:development, :test]
-gem 'reactive-ruby'
-gem 'react-rails', '~> 1.3.0'
-gem 'opal-rails', '0.8.1'
-gem 'therubyracer', platforms: :ruby
-gem 'react-router-rails', '~>0.13.3'
-gem 'reactive-router'
-gem 'reactive-record', "0.7.43"
-gem 'sprockets'
-gem 'synchromesh', git: 'https://github.com/reactrb/synchromesh.git'
+gem 'hyperloop'
+gem 'hyper-operation', path: '../hyper-operation'
+gem 'opal_hot_reloader', :groups => [:development]
+gem 'hyper-console', :groups => [:development, :test], path: '../hyper-console'
+
+group :test do
+  gem "hyper-spec", path: '../hyper-spec'
+  #gem "rspec"
+  #gem "rspec-mocks"
+  #gem "rspec-expectations"
+  gem 'pry-rescue'#, git: "https://github.com/joallard/pry-rescue.git"
+  gem 'pry-stack_explorer'
+  gem "factory_girl_rails"
+  #gem 'shoulda'
+  #gem 'shoulda-matchers'
+  #gem 'rspec-its'
+  #gem 'rspec-collection_matchers'
+  gem 'database_cleaner', git: "https://github.com/DatabaseCleaner/database_cleaner.git"
+end
