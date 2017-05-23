@@ -6,6 +6,7 @@ include FileUtils
 # path to your application root.
 APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
 APP_NAME = ENV['C9_PROJECT'] || File.base_name(APP_ROOT)
+APP_CLASS = APP_NAME.gsub('-', '_').split('_').collect!{ |w| w.capitalize }.join
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
@@ -16,7 +17,7 @@ chdir APP_ROOT do
   # Add necessary setup steps to this file.
   
   puts '== Installing Ruby 2.3.1 =='
-  system! `rvm install ruby-2.3.1`
+  system `rvm install ruby-2.3.1`
 
   puts '== Installing dependencies =='
   system! 'gem install bundler --conservative'
@@ -27,8 +28,10 @@ chdir APP_ROOT do
   IO.write(db_yml_path, File.open(db_yml_path) {|f| f.read.gsub(/hyperloop_/, "#{APP_NAME}_")})
   IO.write(db_yml_path, File.open(db_yml_path) {|f| f.read.gsub(/HYPERLOOP_PRODUCTION_DB_PASSWORD/, "#{APP_NAME.upcase}_PASSWORD")})
 
-  puts "== Updating app name to #{APP_NAME.camelize} =="
+  puts "== Updating app name to #{APP_CLASS} =="
   application_path = File.join(APP_ROOT, 'config', 'application.rb')
-  app_class = APP_NAME.gsub('-', '_').split('_').collect!{ |w| w.capitalize }.join
-  IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/HyperloopCloneAndGo/, "#{APP_NAME.camelize}")})
+  IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/HyperloopCloneAndGo/, "#{APP_CLASS}")})
+  
+  puts "\n\nTo finish initialization make sure mysql is running then do a 'bundle exec rails db:create'"
+  puts "For example on cloud9 workspaces you would run 'mysql-ctl start' "
 end
