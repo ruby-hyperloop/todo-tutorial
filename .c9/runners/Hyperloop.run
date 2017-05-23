@@ -1,0 +1,11 @@
+{
+  "cmd": [
+    "bash",
+    "--login",
+    "-c",
+    "rvm use 2.3.1; bundle exec invoker start Procfile"
+  ],
+  "working_dir": "$project_path",
+  "info": "Hyperloop Application running at \\033[01;34m$url\\033[00m.\n\\033[01;31m",
+  "selector": "source.ru"
+}
