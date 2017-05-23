@@ -124,7 +124,7 @@ GEM
       hyper-operation (>= 0.5.0)
     hyper-model (0.6.0)
       hyper-mesh
-    hyper-operation (0.5.6)
+    hyper-operation (0.5.7)
       activerecord (>= 0.3.0)
       hyper-component (>= 0.12.2)
       hyperloop-config (>= 0.9.7)

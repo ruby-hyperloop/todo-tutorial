@@ -19,14 +19,14 @@ default: &default
 
 development:
   <<: *default
-  database: todo-tutorial_development
+  database: hyperloop_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: todo-tutorial_test
+  database: hyperloop_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: todo-tutorial_production
-  username: todo-tutorial
-  password: <%= ENV['TODO-TUTORIAL_DATABASE_PASSWORD'] %>
+  database: hyperloop_production
+  username: hyperloop-developer
+  password: <%= ENV['HYPERLOOP_PRODUCTION_DB_PASSWORD'] %>
