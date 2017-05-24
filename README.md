@@ -2,7 +2,7 @@
 
 Clone this repo onto your local machine and you will be ready to code up a full stack Hyperloop app.  You will need to have [ruby](https://www.ruby-lang.org/en/documentation/installation/) and [the mysql database](https://dev.mysql.com/doc/refman/5.7/en/installing.html) installed.  
 
-You can also clone the repo into a [Cloud9 virtual IDE](https://c9.io) workspace for an even quicker install ([details here.](/cloud9-setup.md))
+You can also clone the repo into a [Cloud9 virtual IDE](https://c9.io) workspace for an even quicker install ([details here.](https://github.com/ruby-hyperloop/rails-clone-and-go/blob/master/cloud9-setup.md))
 
 To finish the install run ./bin/setup.
 
