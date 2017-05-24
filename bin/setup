@@ -33,6 +33,14 @@ chdir APP_ROOT do
   application_path = File.join(APP_ROOT, 'config', 'application.rb')
   IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/HyperloopCloneAndGo/, "#{APP_CLASS}")})
   
-  puts "\n\nTo finish initialization make sure mysql is running then do a 'bundle exec rails db:create'"
-  puts "For example on cloud9 workspaces you would run 'mysql-ctl start' "
 end
+
+puts "\n\n\e[33m"
+puts "*********************************************************************************\n\n"
+puts "To finish installation...\n\n"
+puts "   1. switch to ruby 2.3.1 by doing an 'rvm use 2.3.1'\n"
+puts "   2. make sure mysql is installed and running (on cloud9 do a 'mysql-ctl start')\n"
+puts "   3. and then do a 'bundle exec rails db:create'\n\n"
+puts "*********************************************************************************\n\n"
+
+#\e[#{color_code}m#{text}\e[0m
