@@ -6,7 +6,7 @@ class App < Hyperloop::Router
   
   route do
     
-    SPAN { 'Hyperloop at your service' }
+    SPAN { 'Hyperloop at your service!' }
     
     # add routes anywhere in this block... any route matching will be displayed
     # here are some samples (note you can mix Routes with other components)
@@ -17,6 +17,5 @@ class App < Hyperloop::Router
     # Route('/:scope', mounts: Index) # match /... and then mount Index passing the matched url segment as the scope param
     # See https://github.com/ruby-hyperloop/hyper-router for details
     
-    end
   end
 end
