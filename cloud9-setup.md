@@ -27,7 +27,7 @@ Create Your Workspace!
 
 ### Step 3: Run the Setup Script
 
-Once your workspace is created you should the readme displayed.  Just follow the directions and run
+Once your workspace is created you should see the readme displayed.  Just follow the directions and run
 
 `./bin/setup` to complete the initialization process.
 
