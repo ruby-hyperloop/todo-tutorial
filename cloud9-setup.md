@@ -7,7 +7,7 @@ Even if you are an experienced Rails developer there are some advantages to doin
 
 + You will get a consistent setup, which will avoid any possible configuration problems between linux/mac/windows OS versions, etc.
 + Cloud9 supports co-development, so if you hit a snag it makes it even easier to get help from others.
-+ Your development environment can be accessed by others so you can immediately show people on other machines the Hyperloop multi-client syncronization.
++ Your development server can be accessed by others through your unique cloud9 url so you can immediately show people on other machines the Hyperloop multi-client synchronization.
 
 Once you are comfortable with Hyperloop, transitioning your app back to your normal development environment is as easy as doing a git pull of your saved repo.
 
