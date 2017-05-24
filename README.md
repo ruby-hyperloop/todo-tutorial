@@ -10,7 +10,7 @@ Then make sure mysql2 is running and do `bundle exec rails db:create`
 
 #### Adding a new component:
 
-`bundle exec rails g hyperloop:component Show` will add a component template and place it in the `app/hyperloop/components` directory.  Details on the structure of Hyperloop components can be found [here.](http://ruby-hyperloop.io/docs/components/dsl-overview/)
+`bundle exec rails g hyper:component Show` will add a component template and place it in the `app/hyperloop/components` directory.  Details on the structure of Hyperloop components can be found [here.](http://ruby-hyperloop.io/docs/components/dsl-overview/)
 
 #### Routing to your component:
 
