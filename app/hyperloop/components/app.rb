@@ -4,9 +4,13 @@ class App < Hyperloop::Router
   
   history :browser
   
+  after_mount do
+    every(1) { force_update! }
+  end
+  
   route do
     
-    SPAN { 'Hyperloop at your service!' }
+    SPAN { "Hyperloop at your service! - The time is #{Time.now}" }
     
     # add routes anywhere in this block... any route matching will be displayed
     # here are some samples (note you can mix Routes with other components)
