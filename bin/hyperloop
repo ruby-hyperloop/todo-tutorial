@@ -7,5 +7,5 @@ include FileUtils
 APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
 
 chdir APP_ROOT do
-  system 'rvm use 2.3.1; bundle exec invoker start Procfile'
+  system 'rvm 2.3.1; bundle exec invoker start Procfile'
 end
