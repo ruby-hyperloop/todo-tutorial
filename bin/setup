@@ -21,8 +21,8 @@ chdir APP_ROOT do
   system `rvm 2.3.1`
 
   puts '== Installing dependencies =='
-  system! 'gem install bundler --conservative'
-  system('bundle check') || system!('bundle install')
+  system! 'rvm 2.3.1 do gem install bundler --conservative'
+  system('rvm 2.3.1 do bundle check') || system!('rvm 2.3.1 do bundle install')
   
   puts '== Updating database yml file =='
   db_yml_path = File.join(APP_ROOT, 'config', 'database.yml')
