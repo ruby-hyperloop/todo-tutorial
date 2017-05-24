@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'rails', '4.2.6'
-gem 'rails', '~>5.0.0'
+gem 'rails', '~>5.0.1'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
 gem 'puma'
-#gem 'mysql2'
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -75,16 +75,15 @@ end
 gem 'pusher'
 gem 'pusher-fake', :groups => [:development, :test]
 gem 'hyperloop'
-gem 'hyper-operation', path: '../hyper-operation'
 gem 'opal_hot_reloader', :groups => [:development]
-gem 'hyper-console', :groups => [:development, :test], path: '../hyper-console'
+gem 'hyper-console', :groups => [:development, :test]
 
 group :test do
   gem "hyper-spec", path: '../hyper-spec'
   #gem "rspec"
   #gem "rspec-mocks"
   #gem "rspec-expectations"
-  gem 'pry-rescue'#, git: "https://github.com/joallard/pry-rescue.git"
+  gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem "factory_girl_rails"
   #gem 'shoulda'

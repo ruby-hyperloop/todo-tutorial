@@ -3,22 +3,22 @@ module Components
 
     include HyperRouter::ComponentMethods
 
-    param :incomplete_count, type: Integer
+    def link_item(path)
+      # helper method to display a link with camelized title
+      # the router NavLink component takes care of setting class
+      LI { NavLink("/#{path}", active_class: :selected) { path.camelize } }
+    end
 
-    def render
-      footer(class: :footer) do # render a footer tag
-        # display the todo count
-        #   notice we can shorten span(class: 'todo-count') haml style
-        span.todo_count do
-          "#{params.incomplete_count} item#{'s' unless params.incomplete_count == 1} left"
-        end
-        # then display an unsorted list of the three footer links.
-        #   again we pass the 'filter' class 'haml style'
-        ul.filters do
-          li { NavLink('/all', active_class: :selected) { 'All' }}
-          li { NavLink('/completed', active_class: :selected)  { 'Completed' }}
-          li { NavLink('/active', active_class: :selected) { 'Active' }}
-        end
+    render(FOOTER, class: :footer) do # render a footer tag
+      # display the todo count
+      SPAN(class: 'todo-count') do
+        "#{Todo.active.count} #{'item'.pluralize Todo.active.count} left"
+      end
+      # then display an unsorted list of the three footer links.
+      UL(class: :filters) do
+        link_item(:all)
+        link_item(:completed)
+        link_item(:active)
       end
     end
   end
