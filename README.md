@@ -4,15 +4,11 @@ Clone this repo onto your local machine and you will be ready to code up a full 
 
 You can also clone the repo into a [Cloud9 virtual IDE](https://c9.io) workspace for an even quicker install ([details here.](https://github.com/ruby-hyperloop/rails-clone-and-go/blob/master/cloud9-setup.md))
 
-To finish the install run ./bin/setup.
+Once you have cloned the repo (or created your Cloud9 workspace) run `bin/setup`.
 
-Then make sure mysql2 is running and do `bundle exec rails db:create`
+Once you are installed you can fire up the server and the opal-hot-reloader by running `bin/hyperloop` in a console window.  Note that it will take several minutes to precompile the hyperloop client libraries on the first boot.
 
-*On cloud9 workspaces you start mysql2 by doing a `mysql-ctl start`.*
-
-Once you are installed you can fire up the server, and the opal-hot-reloader by running `./bin/hyperloop` in a console window.
-
-The repo routes to a top level `App` router component, so if you visit your localhost (or your cloud9 url) and you should see 'Welcome To Hyperloop' displayed.
+Once your server is booted visit your newly created apps home page and you should see a welcome message.
 
 ## Hyperloop Quick Start
 
