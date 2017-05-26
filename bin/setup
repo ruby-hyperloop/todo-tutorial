@@ -38,14 +38,19 @@ chdir APP_ROOT do
     application_path = File.join(APP_ROOT, 'Procfile')
     IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/ -p 808\d/, '')})
   end
+  
+  puts '== Initializing the DB =='
+  if system('rvm 2.3.1 do bundle exec rails db:create')
+    puts "\n\n\e[33m"
+    puts "*********************************************************************************\n\n"
+    puts "To finish installation switch to ruby 2.3.1 by doing an 'rvm use 2.3.1'\n"
+    puts "*********************************************************************************\n\n"
+  else
+    puts "\n\n\e[33m"
+    puts "*********************************************************************************\n\n"
+    puts "Failed to create your DB.  Make sure MySql is installed and running.\n"
+    puts "To finish installation switch to ruby 2.3.1 by doing an 'rvm use 2.3.1'\n"
+    puts "Then do a 'bundle exec rails db:create'"
+    puts "*********************************************************************************\n\n"
+  end
 end
-
-puts "\n\n\e[33m"
-puts "*********************************************************************************\n\n"
-puts "To finish installation...\n\n"
-puts "   1. switch to ruby 2.3.1 by doing an 'rvm use 2.3.1'\n"
-puts "   2. make sure mysql is installed and running (on cloud9 do a 'mysql-ctl start')\n"
-puts "   3. and then do a 'bundle exec rails db:create'\n\n"
-puts "*********************************************************************************\n\n"
-
-#\e[#{color_code}m#{text}\e[0m
