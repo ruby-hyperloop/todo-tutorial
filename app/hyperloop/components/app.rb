@@ -9,17 +9,17 @@ class App < Hyperloop::Router
   end
   
   route do
+    DIV do
+      SPAN { "Hyperloop at your service! - The time is #{Time.now}" }
     
-    SPAN { "Hyperloop at your service! - The time is #{Time.now}" }
-    
-    # add routes anywhere in this block... any route matching will be displayed
-    # here are some samples (note you can mix Routes with other components)
-    
-    # Route('/hello', mounts: Hello) match /hello and mount the 'Hello' component here
-    # Route('/', exact: true) { Home() } # match / (and only /) and mount the Home component
-    # Route('/', exact: true) { Redirect('/all') } # or redirect to some other url
-    # Route('/:scope', mounts: Index) # match /... and then mount Index passing the matched url segment as the scope param
-    # See https://github.com/ruby-hyperloop/hyper-router for details
-    
+      # add routes anywhere in this block... any route matching will be displayed
+      # here are some samples (note you can mix Routes with other components)
+
+      # Route('/hello', mounts: Hello) match /hello and mount the 'Hello' component here
+      # Route('/', exact: true) { Home() } # match / (and only /) and mount the Home component
+      # Route('/', exact: true) { Redirect('/all') } # or redirect to some other url
+      # Route('/:scope', mounts: Index) # match /... and then mount Index passing the matched url segment as the scope param
+      # See https://github.com/ruby-hyperloop/hyper-router for details
+    end
   end
 end
