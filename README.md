@@ -1,14 +1,14 @@
 # Welcome to Hyperloop
 
-Clone this repo onto your local machine and you will be ready to code up a full stack Hyperloop app.  You will need to have [ruby](https://www.ruby-lang.org/en/documentation/installation/) and [the mysql database](https://dev.mysql.com/doc/refman/5.7/en/installing.html) installed.  
+Clone this repo onto your local machine and you will be ready to code up a full stack Hyperloop app.  You will need to have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) and the [Mysql database] server  (https://dev.mysql.com/doc/refman/5.7/en/installing.html) installed.  
 
 You can also clone the repo into a [Cloud9 virtual IDE](https://c9.io) workspace for an even quicker install ([details here.](https://github.com/ruby-hyperloop/rails-clone-and-go/blob/master/cloud9-setup.md))
 
-Once you have cloned the repo (or created your Cloud9 workspace) run `bin/setup`.
+Once you have cloned the repo (or created your Cloud9 workspace) run `bin/setup` in a console window.
 
 Once you are installed you can fire up the server and the opal-hot-reloader by running `bin/hyperloop` in a console window (in Cloud9 you can also use the run command at the top navbar.)  Note that it will take several minutes to precompile the hyperloop client libraries on the first boot.
 
-Once your server is booted visit your newly created apps home page and you should see a welcome message.  On Cloud9 you can use the preview button (in the top navbar) to bring up your app right in the IDE.
+Once your server is booted visit your newly created apps home page and you should see a welcome message.  On Cloud9 you can use the preview button (in the top navbar) to bring up your app right in the IDE, which works very well with the hot-reloader.
 
 ## Hyperloop Quick Start
 
