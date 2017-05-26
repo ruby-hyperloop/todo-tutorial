@@ -31,15 +31,11 @@ Once your workspace is created you should see the readme displayed.  Just follow
 
 `./bin/setup` to complete the initialization process.
 
-### Step 4: Make sure you start MySQL
+### Step 4: Fire Up The Server
 
-run `mysql-ctl start`
+Use the cloud9 run command (along the nav top bar) ir run `./bin/hyperloop` in a terminal window 
 
-### Step 5: Fire Up The Server
-
-run `./bin/hyperloop` or use the cloud9 run command (along the nav top bar)
-
-### Step 6: Visit the App
+### Step 5: Visit the App
 
 You can see the App running right in the IDE window by clicking on `preview` in the top nav bar,
 or by pasting your unique cloud9 url into another browser window
