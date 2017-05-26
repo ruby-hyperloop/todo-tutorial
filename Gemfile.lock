@@ -150,7 +150,7 @@ GEM
       rails (>= 4.0.0)
       react-rails (~> 1.9.0)
       therubyracer
-    hyperloop-config (0.9.8)
+    hyperloop-config (0.9.10)
       opal
       opal-browser
     i18n (0.8.1)
