@@ -13,7 +13,7 @@ Once you are comfortable with Hyperloop, transitioning your app back to your nor
 
 ### Step 1: Get a Cloud9 account
 
-Go to [cloud 9's website](https://c9.io/?redirect=0) and signup for an account (you can use your github account for signup.)  You will have to supply a credit card, but to our knowledge Cloud9 can be trusted!
+Go to [Cloud 9's website](https://c9.io/?redirect=0) and signup for an account (you can use your github account for signup.)  You will have to supply a credit card, but to our knowledge Cloud9 can be trusted!
 
 ### Step 2: Create Your New Workspace
 
@@ -29,11 +29,11 @@ Create Your Workspace!
 
 Once your workspace is created you should see the readme displayed.  Just follow the directions and run
 
-`./bin/setup` to complete the initialization process.
+`bin/setup` to complete the initialization process.
 
 ### Step 4: Fire Up The Server
 
-Use the cloud9 run command (along the nav top bar) ir run `./bin/hyperloop` in a terminal window 
+Use the cloud9 run command (along the nav top bar) ir run `bin/hyperloop` in a terminal window 
 
 ### Step 5: Visit the App
 
