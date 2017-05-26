@@ -1,3 +1,4 @@
+`mysql-ctl start` if ENV['C9_PROJECT'] && `mysql-ctl status` =~ /stopped/
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
