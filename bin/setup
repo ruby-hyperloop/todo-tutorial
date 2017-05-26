@@ -33,6 +33,11 @@ chdir APP_ROOT do
   application_path = File.join(APP_ROOT, 'config', 'application.rb')
   IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/HyperloopCloneAndGo/, "#{APP_CLASS}")})
   
+  unless ENV['C9_PROJECT']
+    puts "== Updating Procfile ports =="
+    application_path = File.join(APP_ROOT, 'Procfile')
+    IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/ -p 808\d/, '')})
+  end
 end
 
 puts "\n\n\e[33m"
