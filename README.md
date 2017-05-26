@@ -6,9 +6,9 @@ You can also clone the repo into a [Cloud9 virtual IDE](https://c9.io) workspace
 
 Once you have cloned the repo (or created your Cloud9 workspace) run `bin/setup`.
 
-Once you are installed you can fire up the server and the opal-hot-reloader by running `bin/hyperloop` in a console window.  Note that it will take several minutes to precompile the hyperloop client libraries on the first boot.
+Once you are installed you can fire up the server and the opal-hot-reloader by running `bin/hyperloop` in a console window (in Cloud9 you can also use the run command at the top navbar.)  Note that it will take several minutes to precompile the hyperloop client libraries on the first boot.
 
-Once your server is booted visit your newly created apps home page and you should see a welcome message.
+Once your server is booted visit your newly created apps home page and you should see a welcome message.  On Cloud9 you can use the preview button (in the top navbar) to bring up your app right in the IDE.
 
 ## Hyperloop Quick Start
 
