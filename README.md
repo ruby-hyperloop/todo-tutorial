@@ -1,4 +1,16 @@
-# Welcome to Hyperloop
+<p align="center">
+	<a href="http://ruby-hyperloop.io/" alt="Hyperloop" title="Hyperloop">
+		<img src="https://github.com/ruby-hyperloop/hyperloop/blob/master/hyperloop-logo-small-pink.png">
+	</a>
+</p>
+
+<h1 align="center">
+	Hyperloop
+</h1>
+
+<h3 align="center">The Complete Isomorphic Ruby Framework</h3>
+
+<br>
 
 Clone this repo onto your local machine and you will be ready to code up a full stack Hyperloop app.  You will need to have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) and the [Mysql database] server  (https://dev.mysql.com/doc/refman/5.7/en/installing.html) installed.  
 
