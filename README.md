@@ -1,3 +1,5 @@
+<div style="background-color: white">
+
 <p align="center">
 	<a href="http://ruby-hyperloop.io/" alt="Hyperloop" title="Hyperloop">
 		<img src="https://raw.githubusercontent.com/ruby-hyperloop/ruby-hyperloop.io/source/source/images/hyperloop-logo-small-pink.png">
@@ -51,3 +53,5 @@ Complex reactive state information should be kept in stores, which should be pla
 Hyperloop Operations keep Stores and Components separated, provides a central place to put business logic, and can run isomorphically on the client or server.  More info on Operations [here.](http://ruby-hyperloop.io/start/operations/)
 
 #### Have Fun!
+
+</div>
