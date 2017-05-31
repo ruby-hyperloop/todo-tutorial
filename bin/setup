@@ -40,6 +40,10 @@ chdir APP_ROOT do
   end
   
   puts '== Initializing the DB =='
+  if ENV['C9_PROJECT'] && `mysql-ctl status 2>&1` =~ /stopped/
+    puts "********* starting mysql **********"
+    `mysql-ctl start`
+  end
   if system('rvm 2.3.1 do bundle exec rails db:create')
     puts "\n\n\e[33m"
     puts "*********************************************************************************\n\n"
