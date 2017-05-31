@@ -5,7 +5,7 @@ include FileUtils
 
 # path to your application root.
 APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
-APP_NAME = ENV['C9_PROJECT'] || File.base_name(APP_ROOT)
+APP_NAME = ENV['C9_PROJECT'] || File.basename(APP_ROOT)
 APP_CLASS = APP_NAME.gsub('-', '_').split('_').collect!{ |w| w.capitalize }.join
 
 def system!(*args)
