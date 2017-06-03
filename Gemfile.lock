@@ -124,7 +124,7 @@ GEM
       opal-activesupport
       pusher
       pusher-fake
-    hyper-react (0.12.6)
+    hyper-react (0.12.7)
       hyper-store (>= 0.2.1)
       hyperloop-config (>= 0.9.7)
       opal (>= 0.8.0)
@@ -353,4 +353,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.14.6
+   1.15.0
