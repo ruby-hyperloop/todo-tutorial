@@ -44,7 +44,8 @@ chdir APP_ROOT do
     puts "********* starting mysql **********"
     `mysql-ctl start`
   end
-  if system('rvm 2.3.1 do bundle exec rails db:create')
+  system('rvm 2.3.1 do bundle exec rails db:create')
+  if system('rvm 2.3.1 do bundle exec rake environment')
     puts "\n\n\e[33m"
     puts "*********************************************************************************\n\n"
     puts "To finish installation switch to ruby 2.3.1 by doing an 'rvm use 2.3.1'\n"
