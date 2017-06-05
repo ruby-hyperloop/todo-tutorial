@@ -1,24 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TodoTutorial</title>
     <%= csrf_meta_tags %>
-
-    <link rel="stylesheet" href="https://rawgit.com/ruby-hyperloop/hyperloop-js-helloworld/master/style.css" >
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-
-  	<div class="hyperloophelloword">
-
-  		<img src="https://rawgit.com/ruby-hyperloop/hyperloop-js-helloworld/master/hyperloop-logo-medium-white.png?raw=true">
-    
-    	<%= yield %>
-
-    </div>
-    
+  	<%= yield %>
   </body>
 </html>
