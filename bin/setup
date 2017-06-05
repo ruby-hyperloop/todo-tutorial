@@ -37,6 +37,9 @@ chdir APP_ROOT do
     puts "== Updating Procfile ports =="
     application_path = File.join(APP_ROOT, 'Procfile')
     IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/ -p 808\d/, '')})
+    puts "== Updating Hot Reloader Settings =="
+    application_path = File.join(APP_ROOT, 'app', 'assets', 'javascripts', 'application.js')
+    IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/\$listen\(\)/, '$listen(8081, false, 1)')})
   end
   
   puts '== Initializing the DB =='
