@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/catmando/opal-hot-reloader.git
-  revision: 87d85ac0e3d4be44a8a3fe3eda97ea898c05034b
+  remote: https://github.com/fkchang/opal-hot-reloader.git
+  revision: 3438a1cf49c3f5b3d0936b08b6c594c8458a651c
   specs:
     opal_hot_reloader (0.1.4)
       listen (~> 3.0)
@@ -353,4 +353,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.0
+   1.15.1

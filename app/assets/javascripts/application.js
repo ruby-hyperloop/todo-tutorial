@@ -15,4 +15,4 @@
 //= require 'jquery'
 //= require_tree .
 //= require hyperloop-loader
-Opal.OpalHotReloader.$listen(8081)
+Opal.OpalHotReloader.$listen() // optional (port, false, poll_seconds) i.e. (8081, false, 1)
