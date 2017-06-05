@@ -33,13 +33,14 @@ chdir APP_ROOT do
   application_path = File.join(APP_ROOT, 'config', 'application.rb')
   IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/HyperloopCloneAndGo/, "#{APP_CLASS}")})
   
-  unless ENV['C9_PROJECT']
-    puts "== Updating Procfile ports =="
-    application_path = File.join(APP_ROOT, 'Procfile')
-    IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/ -p 808\d/, '')})
+  if ENV['C9_PROJECT']
     puts "== Updating Hot Reloader Settings =="
     application_path = File.join(APP_ROOT, 'app', 'assets', 'javascripts', 'application.js')
     IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/\$listen\(\)/, '$listen(8081, false, 1)')})
+  else
+    puts "== Updating Procfile ports =="
+    application_path = File.join(APP_ROOT, 'Procfile')
+    IO.write(application_path, File.open(application_path) {|f| f.read.gsub(/ -p 808\d/, '')})
   end
   
   puts '== Initializing the DB =='
@@ -47,7 +48,8 @@ chdir APP_ROOT do
     puts "********* starting mysql **********"
     `mysql-ctl start`
   end
-  if system('rvm 2.3.1 do bundle exec rails db:create')
+  system('rvm 2.3.1 do bundle exec rails db:create')
+  if system('rvm 2.3.1 do bundle exec rake environment')
     puts "\n\n\e[33m"
     puts "*********************************************************************************\n\n"
     puts "To finish installation switch to ruby 2.3.1 by doing an 'rvm use 2.3.1'\n"
