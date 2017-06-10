@@ -1,5 +1,16 @@
+# Hyperloop TodoMVC Tutorial
 
+In this tutorial you will build the classic TodoMVC application using Hyperloop
+![](todo-chapter-1.png?raw=true)
+The finished application will
+1. have the ability to add and edit todos;
+2. be able change the complete/incomplete state;
+3. filter the list of displayed todos to show all, complete, or incomplete (active) todos;
+4. have html5 history so that as the filter changes so does the URL;
+6. server side persistence;
+7. and synchronization across multiple browser windows.
 
+You will write about 100 lines of code, and the tutorial should take about 1-2 hours to complete.
 
 ### Chapter 1: Setting Things Up
 
