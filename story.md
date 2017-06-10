@@ -105,7 +105,7 @@ Okay lets see it in action:
      end
    end
    ```  
-   Reload the page you will see *Number of Todos: 0* displayed.  
+   **Reload the page** you will see *Number of Todos: 0* displayed.  *You must reload the page as you have changed the class of App from `Router` to `Component`*
 
    Now start a rails console (enter `bundle exec rails c` into terminal) and type:  
    `Todo.create(title: 'my first todo')`  
@@ -115,7 +115,9 @@ Okay lets see it in action:
    `Todo.create(title: 'my second todo')`  
    and you will see the count change to 2!   
 
-  Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
+Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
+  
+Notice that we did not create any APIs to achieve this.  Data on the server is simply with data on the client for you.
 
 ### Chapter 3: Creating the Top Level App Structure
 
@@ -123,7 +125,7 @@ Now that we have all of our pieces in place, lets build our application.
 
 Replace the entire contents of `app.rb` with:
 ```ruby
-# app/hyperloop/components/show.rb
+# app/hyperloop/components/app.rb
 class App < Hyperloop::Component
   render(DIV) do
     Header()
@@ -132,7 +134,10 @@ class App < Hyperloop::Component
   end
 end
 ```
-and the stub out the three sub components by adding three new ruby files to the app/hyperloop/components folder:
+
+The browser screen will go blank because we have not defined the three subcomponents.  Lets define them now:
+
+Add three new ruby files to the `app/hyperloop/components` folder:
 ```ruby
 # app/hyperloop/components/header.rb
 class Header < Hyperloop::Component
@@ -162,6 +167,8 @@ Once you add the Footer component you should see:
 Header will go here  
 list of Todos will go here  
 Footer will go here  
+
+If you don't, restart the server, and reload the browser.
 
 ### Chapter 4: Listing the Todos, HyperReact Params, and Prerendering
 
