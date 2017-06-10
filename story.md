@@ -74,7 +74,7 @@ We are going to add our Todo Model, and discover that Hyperloop models are in fa
 Okay lets see it in action:
 
 1. **Add the Todo Model:**  
-  In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
+  In the terminal window run:   
     
    `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
 
@@ -91,7 +91,7 @@ Okay lets see it in action:
 2. **Make your Model Public:**  
   *Move* `todo.rb` to `app/hyperloop/models`.  
 
-   This will make the model accessible on the clients, subject to any data access policies.  
+   This will make the model accessible on the clients *and the server*, subject to any data access policies.  
    
    *Note: The hyperloop installer adds a policy that gives full permission to all clients but only in development and test modes.  Have a look at `app/policies/application_policy` if you are interested.*
    
