@@ -111,9 +111,9 @@ Okay lets see it in action:
    `Todo.create(title: 'my first todo')`  
    this is telling the server to create a new todo, which will update your hyperloop application, and you will see the count change to 1!   
 
-  Try it again:  
-  `Todo.create(title: 'my second todo')` 
-  and you will see the count change to 2!  
+   Try it again:  
+   `Todo.create(title: 'my second todo')`  
+   and you will see the count change to 2!   
 
   Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
 
