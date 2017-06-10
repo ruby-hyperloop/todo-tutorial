@@ -1,19 +1,9 @@
-### General troubleshooting
 
-1: Wait. programs may take a long time to load
-
-2: Make sure to save after every instruction so that you can backtrack
-
-3: Must run ./bin/hyperloop to restart server if you close out of it
-
-4: If you don't like the bright pink background, you can change it to white by going to app/assests/stylesheets/hyperloop-clone-and_go and changing the background color to #ffffff
 
 
 ### Chapter 1: Setting Things Up
 
-Running Hyperloop in Cloud9
-
-This is probably the easiest way to get started doing full stack development with Hyperloop if you don't already have Rails setup on your machine.
+If you do not already have ruby, rails, and bundler setup on your machine then the easiest way to get started doing full stack development with Hyperloop is to use Cloud9.  
 
 Even if you are an experienced Rails developer there are some advantages to doing your first experiments on cloud 9:
 
@@ -21,6 +11,8 @@ You will get a consistent setup, which will avoid any possible configuration pro
 Cloud9 supports co-development, so if you hit a snag it makes it even easier to get help from others.
 Your development server can be accessed by others through your unique cloud9 url so you can immediately show people on other machines the Hyperloop multi-client synchronization.
 Once you are comfortable with Hyperloop, transitioning your app back to your normal development environment is as easy as doing a git pull of your saved repo.
+
+**If you want to go ahead as setup hyperloop on your development machine follow the instructions here: 
 
 **Step 1: Get a Cloud9 account**
 
@@ -45,19 +37,17 @@ Create Your Workspace!
 
 Once your workspace is created you should see the readme displayed. Just follow the directions and run
 
-`bin/setup` to complete the initialization process.
+`bin/setup` in the terminal window to complete the initialization process.
 
 **Step 4: Fire Up The Server**
 
-run `bin/hyperloop` or use the cloud9 run command (along the nav top bar)
+On cloud9 use the run command (along the top nav bar), otherwise in a terminal window run `./bin/hyperloop`
 
 **Step 5: Visit the App**
 
-You can see the App running right in the IDE window by clicking on preview in the top nav bar, or by pasting your unique cloud9 url into another browser window. If you've used the clone from github, you should see a display of the current time
+On Cloud9 you can see the App running right in the IDE window by clicking on "preview" in the top nav bar, otherwise visit localhost:3000 in your browser.
 
-Be advised that load times may very according to your machine. The program is not broken if load times get longer.
-
-To see if you have setup correctly, naviagate to /app/hyperloop/components/app.rb. In this file, you should see some code printing out to the screen. Try changing the string that is being printed and save then refresh you're preview to see if it changes in the preview!
+To see if you have setup correctly, naviagate to /app/hyperloop/components/app.rb. In this file, you should be able to recognize the code printing out to the screen. Try changing the string (and saving) and you should see the change reflected in the browser or IDE previiew screen.
 
 WARNING STOP FOLLOWING OTHER INSTRUCTIONS WHEN YOU GET TO THE BOLDED PHRASE, "HYPERLOOP QUICK START"
 ### Chapter 2:  Hyperloop Models are Rails Models
@@ -71,7 +61,7 @@ We are going to add our Todo Model, and discover that Hyperloop models are in fa
 Okay lets see it in action:
 
 1. **Add the Todo Model:**  
-In a new terminal window (click on circular green plus sign about current terminals) run:   
+In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
 `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
 **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. It should be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
 ```ruby
@@ -691,3 +681,14 @@ end
 
 
 Congratulations! you have completed the tutorial.
+
+
+### General troubleshooting
+
+1: Wait. programs may take a long time to load
+
+2: Make sure to save after every instruction so that you can backtrack
+
+3: Must run ./bin/hyperloop to restart server if you close out of it
+
+4: If you don't like the bright pink background, you can change it to white by going to app/assests/stylesheets/hyperloop-clone-and_go and changing the background color to #ffffff
