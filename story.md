@@ -82,7 +82,7 @@ In a new terminal window (on Cloud9 click on circular green plus sign about curr
         t.boolean :completed, null: false, default: false
     ...
     ```  
-  For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)  Basically this keeps completed as a true boolean, and will avoid having to check between `false` and `nil` later on.  
+    For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)  Basically this keeps completed as a true boolean, and will avoid having to check between `false` and `nil` later on.  
 
 Now run `bundle exec rails db:migrate`  
 
