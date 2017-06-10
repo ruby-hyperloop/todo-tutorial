@@ -2,6 +2,7 @@
 
 In this tutorial you will build the classic TodoMVC application using Hyperloop
 ![](todo-chapter-1.png?raw=true)
+
 The finished application will
 1. have the ability to add and edit todos;
 2. be able change the complete/incomplete state;
