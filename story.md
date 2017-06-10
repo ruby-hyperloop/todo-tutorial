@@ -19,9 +19,9 @@ If you do not already have Ruby, Rails, and bundler setup on your development ma
 
 Even if you are an experienced Rails developer there are some advantages to doing your first experiments on Cloud 9:
 
-+You will get a consistent setup, which will avoid any possible configuration problems between linux/mac/windows OS versions, etc.
-+Cloud9 supports co-development, so if you hit a snag it makes it even easier to get help from others.
-+Your development server can be accessed by others through your unique cloud9 url so you can immediately show people on other machines the Hyperloop multi-client synchronization.
++ You will get a consistent setup, which will avoid any possible configuration problems between linux/mac/windows OS versions, etc.
++ Cloud9 supports co-development, so if you hit a snag it makes it even easier to get help from others.
++ Your development server can be accessed by others through your unique cloud9 url so you can immediately show people on other machines the Hyperloop multi-client synchronization.
 
 Once you are comfortable with Hyperloop, transitioning your app back to your normal development environment is as easy as doing a git pull of your saved repo.
 
@@ -75,6 +75,7 @@ Okay lets see it in action:
 
 1. **Add the Todo Model:**  
 In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
+<br>    
 `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
 **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. It should be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
     ```ruby  
