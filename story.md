@@ -75,9 +75,10 @@ Okay lets see it in action:
 
 1. **Add the Todo Model:**  
 In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
-<br>    
-`bundle exec rails g model Todo title:string completed:boolean priority:integer`   
-**VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. It should be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
+    
+   `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
+
+   **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. It should be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
     ```ruby  
     ...
         t.boolean :completed, null: false, default: false
