@@ -195,6 +195,7 @@ end
 ```
 Now you will see something like
 
+  <div>
   <div style="border:solid; margin-left: 10px; padding: 10px">
   <div>Header will go here</div>
   <ul>
@@ -202,6 +203,7 @@ Now you will see something like
     <li>my second todo</li>
   </ul>
   <div>Footer will go here</div>
+  </div>
   </div>
 
 <br>
