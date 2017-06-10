@@ -84,14 +84,17 @@ In a new terminal window (on Cloud9 click on circular green plus sign about curr
         t.boolean :completed, null: false, default: false
     ...
     ```  
-    For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)  Basically this keeps completed as a true boolean, and will avoid having to check between `false` and `nil` later on.  
+    For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)  Basically this keeps completed as a true boolean, and will avoid having to check between `false` and `nil` later on.   
 
-Now run `bundle exec rails db:migrate`  
+    Now run `bundle exec rails db:migrate`  
 
 2. **Make your Model Public:**     
-*Move* `todo.rb` **and** `application_record.rb` from `app/models/` to `app/hyperloop/models`.  
-This will make the model accessible on the clients, subject to any data access policies.  
-*Note: The hyperloop installer adds a policy that gives full permission to all clients but only in development and test modes.  Have a look at `app/policies/application_policy` if you are interested.*
+*Move* `todo.rb` to `app/hyperloop/models`.  
+
+   This will make the model accessible on the clients, subject to any data access policies.  
+   
+   *Note: The hyperloop installer adds a policy that gives full permission to all clients but only in development and test modes.  Have a look at `app/policies/application_policy` if you are interested.*
+   
 + **Try It**    
 * Change your `App` component's render method to
 ```ruby
