@@ -74,7 +74,6 @@ We are going to add our Todo Model, and discover that Hyperloop models are in fa
 Okay lets see it in action:
 
 1. **Add the Todo Model:**  
-
   In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
     
    `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
