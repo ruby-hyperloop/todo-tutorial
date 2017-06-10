@@ -15,25 +15,27 @@ You will write about 100 lines of code, and the tutorial should take about 1-2 h
 
 ### Chapter 1: Setting Things Up
 
-If you do not already have ruby, rails, and bundler setup on your machine then the easiest way to get started doing full stack development with Hyperloop is to use Cloud9.  
+If you do not already have Ruby, Rails, and bundler setup on your development machine then the easiest way to get started doing full stack development with Hyperloop is to use [Cloud9](http://c9.io).  
 
-Even if you are an experienced Rails developer there are some advantages to doing your first experiments on cloud 9:
+Even if you are an experienced Rails developer there are some advantages to doing your first experiments on Cloud 9:
 
-You will get a consistent setup, which will avoid any possible configuration problems between linux/mac/windows OS versions, etc.
-Cloud9 supports co-development, so if you hit a snag it makes it even easier to get help from others.
-Your development server can be accessed by others through your unique cloud9 url so you can immediately show people on other machines the Hyperloop multi-client synchronization.
++You will get a consistent setup, which will avoid any possible configuration problems between linux/mac/windows OS versions, etc.
++Cloud9 supports co-development, so if you hit a snag it makes it even easier to get help from others.
++Your development server can be accessed by others through your unique cloud9 url so you can immediately show people on other machines the Hyperloop multi-client synchronization.
+
 Once you are comfortable with Hyperloop, transitioning your app back to your normal development environment is as easy as doing a git pull of your saved repo.
 
-**If you want to go ahead as setup hyperloop on your development machine follow the instructions here: 
+**If you want to go ahead as setup hyperloop on your development machine follow the [instructions here:](https://github.com/ruby-hyperloop/rails-clone-and-go) 
+
+Continue for Cloud9 setup:
 
 **Step 1: Get a Cloud9 account**
 
-Go to cloud 9's [website](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwi-1o7vpqnUAhVFwiYKHa_IAZYQFggmMAA&url=https%3A%2F%2Fc9.io%2F&usg=AFQjCNHeXGx8w99yPGVSzgrH-Wa2kB_mQw&sig2=fBVKBbZ90G8VhrFRJQc70g)
-
+Go to Cloud 9's [website](http://c9.io)
 
 and signup for an account (you can use your github account for signup.) You will have to supply a credit card, but to our knowledge Cloud9 can be trusted!
 
-make sure to Connect your Cloud9 account to your github account by going to settings (upper right corner) and clicking the connected services tab, click the connect button next to github and allow it access
+Make sure to Connect your Cloud9 account to your github account by going to settings (upper right corner) and clicking the connected services tab, click the connect button next to github and allow it access.
 
 **Step 2: Create Your New Workspace**
 
@@ -47,7 +49,7 @@ Create Your Workspace!
 
 **Step 3: Run the Setup Script**
 
-Once your workspace is created you should see the readme displayed. Just follow the directions and run
+Once your workspace is created you should see a readme displayed. Just follow the directions and run
 
 `bin/setup` in the terminal window to complete the initialization process.
 
@@ -59,9 +61,8 @@ On cloud9 use the run command (along the top nav bar), otherwise in a terminal w
 
 On Cloud9 you can see the App running right in the IDE window by clicking on "preview" in the top nav bar, otherwise visit localhost:3000 in your browser.
 
-To see if you have setup correctly, naviagate to /app/hyperloop/components/app.rb. In this file, you should be able to recognize the code printing out to the screen. Try changing the string (and saving) and you should see the change reflected in the browser or IDE previiew screen.
+To see if you have everything setup correctly, find the `app/hyperloop/components/app.rb` file. In this file, you should be able to recognize the code printing out to the screen.  Try changing the string (and saving) and you should see the change reflected in the browser or IDE preview screen.
 
-WARNING STOP FOLLOWING OTHER INSTRUCTIONS WHEN YOU GET TO THE BOLDED PHRASE, "HYPERLOOP QUICK START"
 ### Chapter 2:  Hyperloop Models are Rails Models
 
 We are going to add our Todo Model, and discover that Hyperloop models are in fact Rails models.
@@ -76,16 +77,16 @@ Okay lets see it in action:
 In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
 `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
 **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. It should be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
-```ruby
-...
-      t.boolean :completed, null: false, default: false
-...
-```
-For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)  Basically this keeps completed as a true boolean, and will avoid having to check between `false` and `nil` later on.  
+    ```ruby  
+    ...
+        t.boolean :completed, null: false, default: false
+    ...
+    ```  
+  For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)  Basically this keeps completed as a true boolean, and will avoid having to check between `false` and `nil` later on.  
 
-Now run `bundle exec rails db:migrate`
+Now run `bundle exec rails db:migrate`  
 
-+ **Make your Model Public:**    
+2. **Make your Model Public:**     
 *Move* `todo.rb` **and** `application_record.rb` from `app/models/` to `app/hyperloop/models`.  
 This will make the model accessible on the clients, subject to any data access policies.  
 *Note: The hyperloop installer adds a policy that gives full permission to all clients but only in development and test modes.  Have a look at `app/policies/application_policy` if you are interested.*
