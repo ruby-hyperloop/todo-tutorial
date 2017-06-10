@@ -89,7 +89,6 @@ Okay lets see it in action:
     Now run `bundle exec rails db:migrate`  
 
 2. **Make your Model Public:**  
-
   *Move* `todo.rb` to `app/hyperloop/models`.  
 
    This will make the model accessible on the clients, subject to any data access policies.  
@@ -97,7 +96,6 @@ Okay lets see it in action:
    *Note: The hyperloop installer adds a policy that gives full permission to all clients but only in development and test modes.  Have a look at `app/policies/application_policy` if you are interested.*
    
 3. **Try It**    
-
    Replace the current contents of `app/hyperloop/components/app.rb` with  
    ```ruby
    # app/hyperloop/components/app.rb
