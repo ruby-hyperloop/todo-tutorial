@@ -74,7 +74,8 @@ We are going to add our Todo Model, and discover that Hyperloop models are in fa
 Okay lets see it in action:
 
 1. **Add the Todo Model:**  
-In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
+
+  In a new terminal window (on Cloud9 click on circular green plus sign about current terminals) run:   
     
    `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
 
@@ -88,40 +89,37 @@ In a new terminal window (on Cloud9 click on circular green plus sign about curr
 
     Now run `bundle exec rails db:migrate`  
 
-2. **Make your Model Public:**     
-*Move* `todo.rb` to `app/hyperloop/models`.  
+2. **Make your Model Public:**  
+
+  *Move* `todo.rb` to `app/hyperloop/models`.  
 
    This will make the model accessible on the clients, subject to any data access policies.  
    
    *Note: The hyperloop installer adds a policy that gives full permission to all clients but only in development and test modes.  Have a look at `app/policies/application_policy` if you are interested.*
    
-+ **Try It**    
-* Change your `App` component's render method to
-```ruby
-class App < Hyperloop::Component
-    render(DIV) do
-        "Number of Todos: #{Todo.count}"
-      end
-    end
-end
-```
-Reload the page you will see *Number of Todos: 0* displayed.
-*Note: If this does not work, try adding the line `require_relative ‘application_record'` to the top of todo.rb*
+3. **Try It**    
 
-<br>
-Now in another terminal window start a rails console (enter `rails c` into terminal) and type:  
-Todo.create(title: 'my first todo')  
-and you will see the count change to 1!
-<br>  
-Now in a window type:  
-Todo.create(title: 'my second todo') 
-and you will see the count change to 2!
-<br>  
-Go back to your rails console and type:
-Todo.last.title  
-and you will get back "my second todo" 
-<br>
-Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
+   Replace the current contents of `app/hyperloop/components/app.rb` with  
+   ```ruby
+   # app/hyperloop/components/app.rb
+   class App < Hyperloop::Component
+     render(DIV) do
+       "Number of Todos: #{Todo.count}"
+     end
+   end
+   ```  
+   
+  Reload the page you will see *Number of Todos: 0* displayed.  
+  
+  Now start a rails console (enter `bundle exec rails c` into terminal) and type:  
+  `Todo.create(title: 'my first todo')`  
+  this is telling the server to create a new todo, which will update your hyperloop application, and you will see the count change to 1!  
+  
+  Try it again:  
+  `Todo.create(title: 'my second todo')` 
+  and you will see the count change to 2!  
+
+  Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
 
 ### Chapter 3: Creating the Top Level App Structure
 
