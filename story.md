@@ -105,12 +105,11 @@ Okay lets see it in action:
      end
    end
    ```  
-   
-  Reload the page you will see *Number of Todos: 0* displayed.  
+   Reload the page you will see *Number of Todos: 0* displayed.  
   
-  Now start a rails console (enter `bundle exec rails c` into terminal) and type:  
-  `Todo.create(title: 'my first todo')`  
-  this is telling the server to create a new todo, which will update your hyperloop application, and you will see the count change to 1!  
+   Now start a rails console (enter `bundle exec rails c` into terminal) and type:  
+   `Todo.create(title: 'my first todo')`  
+   this is telling the server to create a new todo, which will update your hyperloop application, and you will see the count change to 1!  
   
   Try it again:  
   `Todo.create(title: 'my second todo')` 
