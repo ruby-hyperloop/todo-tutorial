@@ -194,14 +194,15 @@ class Index < Hyperloop::Component
 end
 ```
 Now you will see something like
-<div style="border:solid; margin-left: 10px; padding: 10px">
+
+  <div style="border:solid; margin-left: 10px; padding: 10px">
   <div>Header will go here</div>
   <ul>
     <li>my first todo</li>
     <li>my second todo</li>
   </ul>
   <div>Footer will go here</div>
-</div>
+  </div>
 
 <br>
 
