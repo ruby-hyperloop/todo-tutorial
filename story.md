@@ -195,7 +195,6 @@ end
 ```
 Now you will see something like
 
-  <div>
   <div style="border:solid; margin-left: 10px; padding: 10px">
   <div>Header will go here</div>
   <ul>
@@ -204,17 +203,13 @@ Now you will see something like
   </ul>
   <div>Footer will go here</div>
   </div>
-  </div>
-
-<br>
-
 
 As you can see components can take parameters (or props in react.js terminology.)
 
 Params are declared using the `param` macro and are accessed via the `params` object.
 In our case we *mount* a new TodoItem with each Todo record and pass the Todo as the parameter.   
 
-Now open a rails or hyper-loop console and type `Todo.last.update(title: 'updated todo')` and you will see the last Todo in the list changing.
+Now go back to Rails console and type `Todo.last.update(title: 'updated todo')` and you will see the last Todo in the list changing.
 
 Try adding another Todo using `create` like you did before.
 
