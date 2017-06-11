@@ -13,7 +13,7 @@
 <h3 align="center">The Complete Isomorphic Ruby Framework</h3>
 
 <br>
-
+[POW](/readelse.md)
 Clone this repo onto your local machine and you will be ready to code up a full stack Hyperloop app.  You will need to have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) and the [Mysql database server]  (https://dev.mysql.com/doc/refman/5.7/en/installing.html) installed.  
 
 You can also clone the repo into a [Cloud9 virtual IDE](https://c9.io) workspace for an even quicker install ([details here.](https://github.com/ruby-hyperloop/rails-clone-and-go/blob/master/cloud9-setup.md))

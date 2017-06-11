@@ -11,8 +11,7 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
 //= require 'jquery'
 //= require_tree .
 //= require hyperloop-loader
-Opal.OpalHotReloader.$listen() // optional (port, false, poll_seconds) i.e. (8081, false, 1)
+Opal.OpalHotReloader.$listen(8081, false, 1) // optional (port, false, poll_seconds) i.e. (8081, false, 1)

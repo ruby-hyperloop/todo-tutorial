@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/fkchang/opal-hot-reloader.git
-  revision: 3438a1cf49c3f5b3d0936b08b6c594c8458a651c
+  remote: https://github.com/catprintlabs/opal-hot-reloader.git
+  revision: a2870873fea44aababb410d1e5ec60f0b40a69a2
   specs:
     opal_hot_reloader (0.1.4)
       listen (~> 3.0)
@@ -116,7 +116,7 @@ GEM
       hyper-operation (>= 0.5.0)
     hyper-model (0.6.0)
       hyper-mesh
-    hyper-operation (0.5.7)
+    hyper-operation (0.5.8)
       activerecord (>= 0.3.0)
       hyper-component (>= 0.12.2)
       hyperloop-config (>= 0.9.7)
@@ -145,7 +145,7 @@ GEM
     hyperloop-config (0.9.10)
       opal
       opal-browser
-    i18n (0.8.1)
+    i18n (0.8.4)
     iniparse (1.4.2)
     invoker (1.5.1)
       dotenv (~> 2.0)
@@ -175,21 +175,21 @@ GEM
       nokogiri (>= 1.5.9)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
-    mail (2.6.5)
+    mail (2.6.6)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)
     mutations (0.8.1)
       activesupport
     mysql2 (0.4.6)
-    nio4r (2.0.0)
-    nokogiri (1.7.2)
-      mini_portile2 (~> 2.1.0)
+    nio4r (2.1.0)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
     opal (0.10.4)
       hike (~> 1.2)
       sourcemap (~> 0.1.0)
