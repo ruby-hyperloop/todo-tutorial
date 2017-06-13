@@ -1,6 +1,6 @@
 # Hyperloop TodoMVC Tutorial
 
-In this tutorial you will build the classic TodoMVC application using Hyperloop
+In this tutorial you will build the classic [TodoMVC](http://todomvc.com) application using Hyperloop
 ![](todo-chapter-1.png?raw=true)
 
 The finished application will
@@ -15,7 +15,7 @@ You will write less than 100 lines of code, and the tutorial should take about 1
 
 ### Chapter 1: Setting Things Up
 
-If you do not already have Ruby, Rails, and bundler setup on your development machine then the easiest way to get started doing full stack development with Hyperloop is to use [Cloud9](http://c9.io).  
+If you do not already have Git, Ruby, Rails, and bundler setup on your development machine then the easiest way to get started doing full stack development with Hyperloop is to use [Cloud9](http://c9.io).  
 
 Even if you are an experienced Rails developer there are some advantages to doing your first experiments on Cloud 9:
 
@@ -25,7 +25,7 @@ Even if you are an experienced Rails developer there are some advantages to doin
 
 Once you are comfortable with Hyperloop, transitioning your app back to your normal development environment is as easy as doing a git pull of your saved repo.
 
-**If you want to go ahead as setup hyperloop on your development machine follow these [instructions.](https://github.com/ruby-hyperloop/rails-clone-and-go)**
+**If you want to go ahead and setup hyperloop on your development machine (not using Cloud9) follow these [instructions.](https://github.com/ruby-hyperloop/rails-clone-and-go)**
 
 Continue for Cloud9 setup:
 
@@ -41,15 +41,13 @@ Make sure to Connect your Cloud9 account to your github account by going to sett
 
 You will be invited to create your first workspace. Cloud9 gives you one private workspace and any number of public workspaces. We recommend you use the public option for your first experiments.
 
-Put `git@github.com:ruby-hyperloop/rails-clone-and-go.git` into the field titled titled Clone from Git or Mercurial URL (optional).
+Put "`git@github.com:ruby-hyperloop/rails-clone-and-go.git`" into the field titled **"Clone from Git or Mercurial URL"**.
 
-Select the "Ruby on Rails" template type, and
+Select the "Ruby on Rails" template type, and click the **[Create workspace]** button.
 
-Create Your Workspace!
+**Step 3: Choose Your Branch**
 
-**Step 3: Choose Your Branch
-
-The hyperloop clone and go repo has two branches: `master` and `thin`.  If you are running on the default Cloud9 512MB workspace
+The Hyperloop clone and go repo has two branches: `master` and `thin`.  If you are running on the default Cloud9 512MB workspace
 then you should switch the `thin` branch before proceeding.  This will use a lot less resources (but will be using polling
 instead of ActionCable) for push communications.  To checkout the `thin` branch run 
 ```bash
@@ -80,6 +78,14 @@ We are going to add our Todo Model, and discover that Hyperloop models are in fa
 + Changes on the client are mirrored on the server.
 + Changes to models on the server are synchronized with all participating browsers.
 + Data access is is protected by a robust *policy* mechanism.
+
+>*What is Model? ActiveRecord models are Ruby classes that are backed by a database.
+Rails automatically generates the necessary SQL code for you.  So when you say `Todo.active` Rails generates the appropriate SQL
+and turns the result of the query into appropriate Ruby data structures.*
+
+
+>*Hyperloop Models are extensions of ActiveRecord models that synchronize the data between the client and server
+automatically for you.  So now when you say `Todo.active` it works the same whether you are executing on the server or the client.*
 
 Okay lets see it in action:
 
@@ -880,8 +886,6 @@ Rails.application.routes.draw do
   get '/(*other)', to: 'hyperloop#app' # route everything to the App component
 end
 ```
-
-
 
 ### General troubleshooting
 
