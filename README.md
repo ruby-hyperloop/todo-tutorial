@@ -276,7 +276,7 @@ Now your display should look like this:
 <br>
 You will notice that while it does display the checkboxes, you can not change them by clicking on them.
 
-You can of course change them via the console (or the hyper-console).  Try  
+For now we can change them via the console like we did before.  Try executing 
 `Todo.last.update(completed: true)`  
 and you should see the last Todo's `completed` checkbox changing state.
 
@@ -312,13 +312,17 @@ end
 ```
 *Note: If a component or tag block returns a string it is automatically wrapped in a SPAN, to insert a string in the middle you have to wrap it a SPAN like we did above.*
 
-I hope you are starting to see a pattern here.  HyperReact components determine what to display based on the `state` of some objects.  External events, such as mouse clicks, the arrival of new data from the server, and even timers, update the `state`.  HyperReact recomputes whatever portion of the display depends on the `state` so that the display is always in sync with the `state`.  In our case the objects are the Todo model and its associated records, which has a number of associated internal `states`.  
+I hope you are starting to see a pattern here.  HyperReact components determine what to display based on the `state` of some
+objects.  External events, such as mouse clicks, the arrival of new data from the server, and even timers update the `state`.  HyperReact recomputes whatever portion of the display depends on the `state` so that the display is always in sync with the `state`.  In our case the objects are the Todo model and its associated records, which has a number of associated internal `states`.  
 
 By the way, you don't have to use models to have states.  We will see later that states can be as simple as boolean instance variables.
 
 ### Chapter 6: Routing
 
-Now that Todos can be *completed* or *active*, we would like our user to be able display either "all" Todos, only "completed" Todos, or "active" (or incomplete) Todos.  We want our URL to reflect which filter is currently being displayed.  So `/all` will display all todos, `/completed` will display the completed Todos, and of course `/active` will display only active (or incomplete) Todos.
+Now that Todos can be *completed* or *active*, we would like our user to be able display either "all" Todos,
+only "completed" Todos, or "active" (or incomplete) Todos.  We want our URL to reflect which filter is currently being displayed.
+So `/all` will display all todos, `/completed` will display the completed Todos, and of course `/active` will display only active
+(or incomplete) Todos.  We would also like the root url `/` to be treated as `/all`
 
 To achieve this we first need to be able to *scope* (or filter) the Todo Model. So let's edit the Todo model file so it looks like this:
 
