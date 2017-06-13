@@ -90,17 +90,21 @@ automatically for you.  So now when you say `Todo.active` it works the same whet
 Okay lets see it in action:
 
 1. **Add the Todo Model:**  
-  In the terminal window run:   
+  In the terminal window run **on a single line**:   
     
    `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
 
+   This runs a rails *generator* which will create the skeleton Todo model class, and create a *migration* which will
+   and the necessary tables and columns to the database.  
+   
    **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. It should be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
     ```ruby  
     ...
         t.boolean :completed, null: false, default: false
     ...
     ```  
-    For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)  Basically this keeps completed as a true boolean, and will avoid having to check between `false` and `nil` later on.   
+    For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)
+    Basically this insures `completed` is treated as a true boolean, and will avoid having to check between `false` and `nil` later on.   
 
     Now run `bundle exec rails db:migrate`  
 
@@ -131,9 +135,9 @@ Okay lets see it in action:
    `Todo.create(title: 'my second todo')`  
    and you will see the count change to 2!   
 
-Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
+Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes, HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
   
-Notice that we did not create any APIs to achieve this.  Data on the server is simply with data on the client for you.
+Notice that we did not create any APIs to achieve this.  Data on the server is synchronized with data on the client for you.
 
 ### Chapter 3: Creating the Top Level App Structure
 
@@ -188,6 +192,8 @@ Once you add the Footer component you should see:
   <br>
 
 If you don't, restart the server, and reload the browser.
+
+Notice how the usual HTML tags such as DIV, SECTION, and HEADER are all available as well as all the other HTML and SVG tags.
 
 ### Chapter 4: Listing the Todos, HyperReact Params, and Prerendering
 
