@@ -25,7 +25,7 @@ Even if you are an experienced Rails developer there are some advantages to doin
 
 Once you are comfortable with Hyperloop, transitioning your app back to your normal development environment is as easy as doing a git pull of your saved repo.
 
-**If you want to go ahead as setup hyperloop on your development machine follow the [instructions here:](https://github.com/ruby-hyperloop/rails-clone-and-go) 
+**If you want to go ahead as setup hyperloop on your development machine follow these [instructions.](https://github.com/ruby-hyperloop/rails-clone-and-go)**
 
 Continue for Cloud9 setup:
 
@@ -47,17 +47,27 @@ Select the "Ruby on Rails" template type, and
 
 Create Your Workspace!
 
-**Step 3: Run the Setup Script**
+**Step 3: Choose Your Branch
+
+The hyperloop clone and go repo has two branches: `master` and `thin`.  If you are running on the default Cloud9 512MB workspace
+then you should switch the `thin` branch before proceeding.  This will use a lot less resources (but will be using polling
+instead of ActionCable) for push communications.  To checkout the `thin` branch run 
+```bash
+git checkout thin
+```
+in the terminal (bash) window.
+
+**Step 4: Run the Setup Script**
 
 Once your workspace is created you should see a readme displayed. Just follow the directions and run
 
 `bin/setup` in the terminal window to complete the initialization process.
 
-**Step 4: Fire Up The Server**
+**Step 5: Fire Up The Server**
 
 On cloud9 use the run command (along the top nav bar), otherwise in a terminal window run `./bin/hyperloop`
 
-**Step 5: Visit the App**
+**Step 6: Visit the App**
 
 On Cloud9 you can see the App running right in the IDE window by clicking on "preview" in the top nav bar, otherwise visit localhost:3000 in your browser.
 
