@@ -65,7 +65,11 @@ Once your workspace is created you should see a readme displayed. Just follow th
 
 **Step 5: Fire Up The Server**
 
-On cloud9 use the run command (along the top nav bar), otherwise in a terminal window run `./bin/hyperloop`
+On cloud9 use the  
+  **[Run Project]**  
+command.
+
+If outside of cloud9 in a terminal window run `./bin/hyperloop`
 
 **Step 6: Visit the App**
 
