@@ -61,6 +61,8 @@ Once your workspace is created you should see a readme displayed. Just follow th
 
 `./bin/setup` in the terminal window to complete the initialization process.
 
+**Make sure you do an `rvm use 2.3.1` when the script completes!!!**
+
 **Step 5: Fire Up The Server**
 
 On cloud9 use the run command (along the top nav bar), otherwise in a terminal window run `./bin/hyperloop`
