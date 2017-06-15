@@ -469,7 +469,8 @@ Add a new component like this:
 class EditItem < Hyperloop::Component
   param :todo
   render do
-    INPUT(defaultValue: params.todo.title)
+    INPUT(defaultValue: params.todo.title, key: params.todo.object_id)
+    # we will explain 'key: params.todo.object_id later'
     .on(:key_down) do |evt|
       next unless evt.key_code == 13
       params.todo.update(title: evt.target.value)
