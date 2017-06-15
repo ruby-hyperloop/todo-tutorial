@@ -27,7 +27,7 @@ Once you are comfortable with Hyperloop, transitioning your app back to your nor
 
 **If you want to go ahead and setup hyperloop on your development machine (not using Cloud9) follow these [instructions.](https://github.com/ruby-hyperloop/rails-clone-and-go)**
 
-Continue for Cloud9 setup:
+Otherwise continue for Cloud9 setup:
 
 **Step 1: Get a Cloud9 account**
 
