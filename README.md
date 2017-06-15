@@ -513,7 +513,7 @@ class EditItem < Hyperloop::Component
   after_mount { Element[dom_node].focus }  # add
 
   render do
-    INPUT(defaultValue: params.todo.title)
+    INPUT(defaultValue: params.todo.title, key: params.todo.object_id)
     .on(:key_down) do |evt|
       next unless evt.key_code == 13
       params.todo.update(title: evt.target.value)
@@ -544,7 +544,7 @@ class TodoItem < Hyperloop::Component
   state editing: false
   render(LI) do
     if state.editing
-      EditItem(todo: params.todo)
+      EditItem(todo: params.todo, key: params.todo.object_id)
       .on(:save, :cancel) { mutate.editing false }
     else
       INPUT(type: :checkbox, checked: params.todo.completed)
@@ -690,8 +690,11 @@ class EditItem < Hyperloop::Component
   after_mount { Element[dom_node].focus }
   render do
     # pass the className param as the INPUT's class
-    INPUT(class: params.className, defaultValue: params.todo.title)
-    .on(:change) do |evt|
+    INPUT(
+      class: params.className, 
+      defaultValue: params.todo.title, 
+      key: params.todo.object_id
+    ).on(:change) do |evt|
       params.todo.title = evt.target.value
     end
     .on(:key_down) do |evt|
