@@ -310,7 +310,7 @@ end
 ```
 Now we can say `Todo.all`, `Todo.completed`, and `Todo.active`, and get the desired subset of Todos.  You might want to try it now in the hyper-console or the rails console.  *Note: if you use the rails console you will have to do a `reload!` to load the changes to the model.*
 
-Having the application display different data (or whole different components) based on the URL is called routing.  Rails also has routing, but in our case we are letting our Hyperloop application take care of routing, so the first step is to tell rails to simply accept any url as valid, and pass it to our `App` component.  
+Having the application display different data (or whole different components) based on the URL is called routing.  Rails also has routing, but in our case we are letting our Hyperloop application take care of routing, so the first step is to tell rails to simply accept any url as valid, and pass it to our `App` component.  If you look at the rails route file (config/routes.rb) you will see this line: `get '/(*other)', to: 'hyperloop#app'` which is routing all requests to our App component.
 
 So the next step is have our top level `App` component *route* the URL, and the `Index` component react to changes in the URL.  Change `App` to look like this:
 ```ruby
@@ -375,14 +375,18 @@ end
 Save the file, and you will now have 3 links, that you will change the path between the three options.  
 
 Here is how the changes work:
-+ Hyperloop is just Ruby, you are free to use all of Ruby's rich feature set to structure your code. For example the `link_item` method is just a *helper* method to save us some typing.
-+ The `link_item` method uses the `path` argument to construct an *Anchor* tag.
++ Hyperloop is just Ruby so you are free to use all of Ruby's rich feature set to structure your code. For example the `link_item` method is just a *helper* method to save us some typing.
++ The `link_item` method uses its `path` argument to construct an *Anchor* tag.
 + Hyperloop comes with a large portion of the rails active-support library.  For the text of the anchor tag we use the active-support method `camelize`.
-+ Later we will add proper classes, but for now we use an inline style.  Notice that `margin-right` becomes `marginRight`, and that the integer 10 becomes `10px`.
++ Later we will add proper classes, but for now we use an inline style.  Notice that `marginRight` becomes `margin-right`, and that the integer 10 becomes `10px`.
 
-What we really want here is for the links to simply change the route, without reloading the page.  To make this happen we will replace the anchor tag with the Router's NavLink component:
-
-Change
+What we really want here is for the links to simply change the route, without reloading the page.  To make this happen we will replace the anchor tag with the Router's NavLink component.  First add this line inside the Footer component:
+```ruby
+class Footer < Hyperloop::Component
+  include Hyperloop::Router::Mixin
+  ...
+```
+This will give you access to additional router features inside your component.  Then change
 ```ruby
   A(href: "/#{path}", style: {marginRight: 10}) { path.camelize }
 ```
@@ -458,17 +462,20 @@ class EditItem < Hyperloop::Component
       params.todo.save
       params.on_save                       # add
     end
-    .on(:blur) { params.on_cancel }        # add
+    .on(:blur) do                          # add
+      params.todo.revert                   # add
+      params.on_cancel                     # add
+    end                                    # add
   end
 end
 ```
-The first two lines add our callbacks.  In HyperReact (and React.js) callbacks are just params.  Giving them `type: Proc` and beginning their name with `on_` means that HyperReact will treat them syntactically like events (as we will see.)  
+The first two new lines add our callbacks.  In HyperReact (and React.js) callbacks are just params.  Giving them `type: Proc` and beginning their name with `on_` means that HyperReact will treat them syntactically like events (as we will see.)  
 
-The next line uses one of several *Lifecycle Callbacks*.  In this case we need to move the focus to the `EditItem` component after is mounted.  The `Element` class is Hyperloop's jQuery wrapper, and `dom_node` is the method that returns the actual dom node where this instance of the component is mounted.
+The next line uses one of several *Lifecycle Callbacks*.  In this case we need to move the focus to the `EditItem` component after it is mounted.  The `Element` class is Hyperloop's jQuery wrapper, and `dom_node` is the method that returns the actual dom node where this instance of the component is mounted.
 
 The `params.on_save` line will call the provided callback.  Notice that because we declared `on_save` as type `Proc`, when we refer to it in the component it invokes the callback rather than returning the value.  for example, if we had left off `type: Proc` we would have to say `params.on_save.call`.
 
-Finally we add the `blur` event handler and simply transform it into our custom `cancel` event.
+Finally we add the `blur` event handler to cancel and changes and call the custom `cancel` event.
 
 Now we can update our `TodoItem` component to be a little state machine, which will react to three events:  `double_click`, `save` and `cancel`.
 ```ruby
@@ -509,10 +516,6 @@ Notice that just as you read params using the `params` method, you read state va
 
 ### Chapter 10: Using EditItem to create new Todos
 
-Our EditItem component has a good robust interface.  It takes a Todo, and lets the user edit the title, and then either save or cancel, using two event style callbacks to communicate back outwards.
-
-Because of this we can easily reuse EditItem to create new Todos.  Not only does this save us time, but it also insures that the user interface acts consistently.
-
 We have no way for a user to enter a new Todo.  At the top of our little Todo App there should be 'new' Todo waiting for the user to enter a title and hit return to save.
 
 We can reuse our EditItem component by updating the `Header` component like this:
@@ -530,6 +533,8 @@ What we have done is create a state variable called `new_todo` and we have initi
 
 Then we pass the value of the state variable to EditItem, and when it is saved, we generate another new Todo and save it the `new_todo` state variable.
 
+**Note:** since the block initializer is only run at page load you will have to refresh the page for this change to take effect.
+
 Notice `new_todo` is a state variable that is used in Header, so when it is mutated, it will cause a re-render of the Header, which will then pass the new value of `new_todo`, to EditItem, causing that component to re-render.  
 
 We don't care if the user cancels the edit, so we simply don't provide a `:cancel` event handler.
@@ -543,7 +548,7 @@ you will need to make a file in app/assests/stylesheets called, todo.css. paste 
 
 You will have to refresh the page after changing the style sheet
 
-Now its a matter of updating the classes (which are passed via the class parameter) and also changing some of the DIVs to other HTML tags.
+Now its a matter of updating the css classes (which are passed to components via the class parameter) and also changing some of the DIVs to other HTML tags.
 
 Lets do the `App` component.  With styling it will look like this:
 ```ruby
