@@ -75,7 +75,7 @@ If outside of cloud9 in a terminal window run `./bin/hyperloop`
 
 On Cloud9 you can see the App running right in the IDE window by clicking on "preview" in the top nav bar, otherwise visit localhost:3000 in your browser.
 
-To see if you have everything setup correctly, find the `app/hyperloop/components/app.rb` file. In this file, you should be able to recognize the code printing out to the screen.  Try changing the string (and saving) and you should see the change reflected in the browser or IDE preview screen.
+To see if you have everything setup correctly, find the `app/hyperloop/components/app.rb` file. In this file, you should be able to recognize the code printing out to the screen.  Try changing the string (and saving) and you should see the change instantly reflected in the browser or IDE preview screen.
 
 ### Chapter 2:  Hyperloop Models are Rails Models
 
@@ -85,13 +85,11 @@ We are going to add our Todo Model, and discover that Hyperloop models are in fa
 + Changes to models on the server are synchronized with all participating browsers.
 + Data access is is protected by a robust *policy* mechanism.
 
->*What is Model? ActiveRecord models are Ruby classes that are backed by a database.
-Rails automatically generates the necessary SQL code for you.  So when you say `Todo.active` Rails generates the appropriate SQL
+>*A Rails ActiveRecord Model is a Ruby class that is backed by a database table.  In this example we will have one model class called `Todo`.  When manipulating models, Rails automatically generates the necessary SQL code for you.  So when `Todo.all` is evaluated Rails generates the appropriate SQL
 and turns the result of the query into appropriate Ruby data structures.*
 
-
->*Hyperloop Models are extensions of ActiveRecord models that synchronize the data between the client and server
-automatically for you.  So now when you say `Todo.active` it works the same whether you are executing on the server or the client.*
+>*Hyperloop Models are extensions of ActiveRecord Models that synchronize the data between the client and server
+automatically for you.  So now `Todo.all` can be evaluated on the server or the client.*
 
 Okay lets see it in action:
 
@@ -100,19 +98,19 @@ Okay lets see it in action:
     
    `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
 
-   This runs a rails *generator* which will create the skeleton Todo model class, and create a *migration* which will
-   and the necessary tables and columns to the database.  
+   This runs a Rails *generator* which will create the skeleton Todo model class, and create a *migration* which will
+   add the necessary tables and columns to the database.  
    
-   **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. It should be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
+   **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. The file will be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
     ```ruby  
     ...
         t.boolean :completed, null: false, default: false
     ...
     ```  
     For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)
-    Basically this insures `completed` is treated as a true boolean, and will avoid having to check between `false` and `nil` later on.   
+    Basically this insures `completed` is treated as a true boolean, and will avoid having to check between `false` and `null` later on.   
 
-    Now run `bundle exec rails db:migrate`  
+    Now run `bundle exec rails db:migrate` which will create the table.
 
 2. **Make your Model Public:**  
   *Move* `todo.rb` to `app/hyperloop/models`.  
@@ -133,7 +131,7 @@ Okay lets see it in action:
    ```  
    **Reload the page** you will see *Number of Todos: 0* displayed.  *You must reload the page as you have changed the class of App from `Router` to `Component`*
 
-   Now start a rails console (enter `bundle exec rails c` into terminal) and type:  
+   Now start a rails console (enter `bundle exec rails c` into a new terminal window) and type:  
    `Todo.create(title: 'my first todo')`  
    this is telling the server to create a new todo, which will update your hyperloop application, and you will see the count change to 1!   
 
@@ -240,6 +238,8 @@ Now you will see something like
 
 As you can see components can take parameters (or props in react.js terminology.)
 
+>*Rails uses the terminology params (short for parameters) which have a similar purpose to React props, so to make the transition more natural for Rails programmers Hyperloop uses params, rather than props.*
+
 Params are declared using the `param` macro and are accessed via the `params` object.
 In our case we *mount* a new TodoItem with each Todo record and pass the Todo as the parameter.   
 
@@ -319,9 +319,9 @@ end
 *Note: If a component or tag block returns a string it is automatically wrapped in a SPAN, to insert a string in the middle you have to wrap it a SPAN like we did above.*
 
 I hope you are starting to see a pattern here.  HyperReact components determine what to display based on the `state` of some
-objects.  External events, such as mouse clicks, the arrival of new data from the server, and even timers update the `state`.  HyperReact recomputes whatever portion of the display depends on the `state` so that the display is always in sync with the `state`.  In our case the objects are the Todo model and its associated records, which has a number of associated internal `states`.  
+objects.  External events, such as mouse clicks, the arrival of new data from the server, and even timers update the `state`.  HyperReact recomputes whatever portion of the display depends on the `state` so that the display is always in sync with the `state`.  In our case the objects are the Todo model and its associated records, which have a number of associated internal `states`.  
 
-By the way, you don't have to use models to have states.  We will see later that states can be as simple as boolean instance variables.
+By the way, you don't have to use Models to have states.  We will see later that states can be as simple as boolean instance variables.
 
 ### Chapter 6: Routing
 
@@ -340,7 +340,7 @@ class Todo < ApplicationRecord
 end
 ```
 Now we can say `Todo.all`, `Todo.completed`, and `Todo.active`, and get the desired subset of Todos.
-You might want to try it now in the rails console.  *Note: you will have to do a `reload!` to load the changes to the model.*
+You might want to try it now in the rails console.  *Note: you will have to do a `reload!` to load the changes to the Model.*
 
 We would like the URL of our App to reflect which of these *filters* is being displayed.  So if we load
 
@@ -400,6 +400,12 @@ indicated component is mounted, and the match parameters are saved for that comp
 
 You should now be able to change the url from `/all`, to `/completed`, to `/active`, and see a different set of Todos.  For example if you are displaying the `/active` Todos, you will only see the Todos that are not complete.  If you check one of these it will disappear from the list.
 
+>*Rails also has the concept of routing, so how do the Rails and Hyperloop routers interact?  Have a look at the config/routes.rb file.  You will see a line like this:  
+`  get '/(*other)', to: 'hyperloop#app'`  
+This is telling Rails to accept all requests and to process them using the `hyperloop` controller, which will attempt to mount a component named `App` in response to the request.  The mounted App component is then responsible for further processing the URL*  
+
+>*For more complex scenarios Hyperloop provides Rails helper methods that can be used to mount components from your controllers, layouts, and views*
+
 ### Chapter 7:  Helper Methods, Inline Styling, Active Support and Router Nav Links
 
 Of course we will want to add navigation to move between these routes.  We will put the navigation in the footer:
@@ -422,9 +428,9 @@ Here is how the changes work:
 + Hyperloop is just Ruby, so you are free to use all of Ruby's rich feature set to structure your code. For example the `link_item` method is just a *helper* method to save us some typing.
 + The `link_item` method uses the `path` argument to construct an HTML *Anchor* tag.
 + Hyperloop comes with a large portion of the Rails active-support library.  For the text of the anchor tag we use the active-support method `camelize`.
-+ Later we will add proper css classes, but for now we use an inline style.  Notice that `margin-right` becomes `marginRight`, and that the integer 10 becomes `10px`.
++ Later we will add proper css classes, but for now we use an inline style.  Notice that the css `margin-right` is written `marginRight`, and that `10px` can be expressed as the integer 10.
 
-**However** what we really want here is for the links to simply change the route, without reloading the page.
+Notice that as you click each link the page reloads.  **However** what we really want is for the links to simply change the route, without reloading the page.
 
 To make this happen we will *mixin* some router helpers by *including* `HyperRouter::ComponentMethods` inside of class.
 
@@ -481,7 +487,8 @@ end
 Before we use this component let's understand how it works.
 + It receives a `todo` param which will be edited by the user;
 + The `title` of the todo is displayed as the initial value of the input;
-+ When the user types the enter key (key code 13) the todo is saved
++ When the user types the enter key (key code 13) the todo is saved.
+
 Now update the `TodoItem` component replacing
 ```ruby
   SPAN { params.todo.title }
@@ -513,7 +520,7 @@ class EditItem < Hyperloop::Component
   after_mount { Element[dom_node].focus }  # add
 
   render do
-    INPUT(defaultValue: params.todo.title, key: params.todo.object_id)
+    INPUT(defaultValue: params.todo.title)
     .on(:key_down) do |evt|
       next unless evt.key_code == 13
       params.todo.update(title: evt.target.value)
@@ -565,7 +572,7 @@ State variables are *just like instance variables* with the added power that whe
 
 You read a state variable using the `state` method (similar to the `params` method) and you change state variables using the `mutate` method.  Whenever you want to change a state variable whether its a simple assignment or changing the internal value of a complex structure like a hash or array you use the `mutate` method.
 
-Lets read on:  Next we see `if state.editing...`.  When the component executes this if statement, it reads the value of the `editing` state variable and will either render the `EditItem` or the input, label, and anchor tags.  In this way `editing` state variable is acting no different than any other Ruby instance variable.  *But here is the key:  The component now knows that if the value of the editing state changes, it must re-render this TodoItem.  When state variables are referenced by a component the component will keep track of this, and will re-rerender when the state changes.*
+Lets read on:  Next we see `if state.editing...`.  When the component executes this `if` statement, it reads the value of the `editing` state variable and will either render the `EditItem` or the input, label, and anchor tags.  In this way the `editing` state variable is acting no different than any other Ruby instance variable.  *But here is the key:  The component now knows that if the value of the editing state changes, it must re-render this TodoItem.  When state variables are referenced by a component the component will keep track of this, and will re-rerender when the state changes.*
 
 Because `editing` starts off false, when the TodoItem first mounts, it renders the input, label, and anchor tags.  Attached to the label tag is a `double_click` handler which does one thing:  *mutates* the editing state.  This then causes the component to re-render, and now instead of the three tags, we will render the `EditItem` component.
 
@@ -623,12 +630,12 @@ Changing the value of the key, will inform React that we are refering to a new T
 
 We are just going to steal the style sheet from the benchmark Todo app, and add it to our assets.
 
-**GO GRAB THE FILE** at https://github.com/JustinManno/todo-tutorial/blob/hyperloop/app/assets/stylesheets/todo.css
-you will need to make a file in app/assests/stylesheets called, todo.css. paste the file there. Make sure to make it a css file.
+**Go grab the file in this repo here:** https://github.com/JustinManno/todo-tutorial/blob/hyperloop/app/assets/stylesheets/todo.css
+and copy it to a new file called `app/assets/stylesheets/todo.css` 
 
 You will have to refresh the page after changing the style sheet
 
-Now its a matter of updating the classes which are passed via the class parameter.
+Now its a matter of updating the css classes which are passed to components via the `class` parameter.
 
 Let's start with the `App` component.  With styling it will look like this:
 ```ruby
@@ -652,12 +659,12 @@ class Footer < Hyperloop::Component
   include HyperRouter::ComponentMethods
   def link_item(path)
     # wrap the NavLink in a LI and
-    # pass the class (selected) to be added when the current
-    # path equals the NavLink's path.
+    # tell the NavLink to change the class to :selected when 
+    # the current (active) path equals the NavLink's path.
     LI { NavLink("/#{path}", active_class: :selected) { path.camelize } }
   end
-  render(DIV, class: :footer) do # add class
-    UL(class: :filters) do # make links into a UL
+  render(DIV, class: :footer) do   # add class
+    UL(class: :filters) do         # wrap links in a UL
       link_item(:all)
       link_item(:active)
       link_item(:completed)
@@ -669,8 +676,8 @@ For the Index component just add the `main` and `todo-list` classes.
 ```ruby
 # app/hyperloop/components/index.rb
 class Index < Hyperloop::Router::Component
-  render(SECTION, class: :main) do   # add class main
-    UL(class: 'todo-list') do        # add class todo-list
+  render(SECTION, class: :main) do         # add class main
+    UL(class: 'todo-list') do              # add class todo-list
       Todo.send(match.params[:scope]).each do |todo|
         TodoItem(todo: todo)
       end
@@ -735,7 +742,7 @@ class Header < Hyperloop::Component
   state(:new_todo) { Todo.new }
   render(HEADER, class: :header) do                   # add the 'header' class
     H1 { 'todos' }                                    # Add the hero unit.
-    EditItem(class: 'new-todo', todo: state.new_todo) # add class
+    EditItem(class: 'new-todo', todo: state.new_todo) # add 'new-todo' class
     .on(:save) { mutate.new_todo Todo.new }
   end
 end
