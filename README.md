@@ -475,8 +475,7 @@ Add a new component like this:
 class EditItem < Hyperloop::Component
   param :todo
   render do
-    INPUT(defaultValue: params.todo.title, key: params.todo.object_id)
-    # we will explain 'key: params.todo.object_id later'
+    INPUT(defaultValue: params.todo.title)
     .on(:key_down) do |evt|
       next unless evt.key_code == 13
       params.todo.update(title: evt.target.value)
@@ -551,7 +550,7 @@ class TodoItem < Hyperloop::Component
   state editing: false
   render(LI) do
     if state.editing
-      EditItem(todo: params.todo, key: params.todo.object_id)
+      EditItem(todo: params.todo)
       .on(:save, :cancel) { mutate.editing false }
     else
       INPUT(type: :checkbox, checked: params.todo.completed)
@@ -631,15 +630,15 @@ Changing the value of the key, will inform React that we are refering to a new T
 We are just going to steal the style sheet from the benchmark Todo app, and add it to our assets.
 
 **Go grab the file in this repo here:** https://github.com/ruby-hyperloop/todo-tutorial/blob/master/app/assets/stylesheets/todo.css
-and copy it to a new file called `todo.css` in the `app/assets/stylesheets/` 
+and copy it to a new file called `todo.css` in the `app/assets/stylesheets/` directory.
 
-You will have to refresh the page after changing the style sheet
+You will have to refresh the page after changing the style sheet.
 
 Now its a matter of updating the css classes which are passed to components via the `class` parameter.
 
 Let's start with the `App` component.  With styling it will look like this:
 ```ruby
-# app/hyperloop/components/show.rb
+# app/hyperloop/components/app.rb
 class App < Hyperloop::Router
   history :browser
   route do
@@ -701,10 +700,7 @@ class EditItem < Hyperloop::Component
       class: params.className, 
       defaultValue: params.todo.title, 
       key: params.todo.object_id
-    ).on(:change) do |evt|
-      params.todo.title = evt.target.value
-    end
-    .on(:key_down) do |evt|
+    ).on(:key_down) do |evt|
       next unless evt.key_code == 13
       params.todo.save
       params.on_save
@@ -865,7 +861,7 @@ class TodoItem < Hyperloop::Component
   state editing: false
   render(LI, class: 'todo-item') do
     if state.editing
-      EditItem(todo: params.todo, className: :edit)
+      EditItem(todo: params.todo, class: :edit)
       .on(:save, :cancel) { mutate.editing false }
     else
       INPUT(type: :checkbox, class: :toggle, checked: params.todo.completed)
@@ -881,10 +877,10 @@ end
 # app/hyperloop/components/edit_item.rb
 class EditItem < Hyperloop::Component
   param :todo
-  param :on_save, type: Proc               # add
-  param :on_cancel, type: Proc             # add
+  param :on_save, type: Proc               
+  param :on_cancel, type: Proc             
   param :className
-  after_mount { Element[dom_node].focus }  # add
+  after_mount { Element[dom_node].focus }  
 
   render do
     INPUT(
@@ -895,7 +891,7 @@ class EditItem < Hyperloop::Component
     ).on(:key_down) do |evt|
       next unless evt.key_code == 13
       params.todo.update(title: evt.target.value)
-      params.on_save                       # add
+      params.on_save                       
     end
     .on(:blur) { params.on_cancel }
   end
