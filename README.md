@@ -630,8 +630,8 @@ Changing the value of the key, will inform React that we are refering to a new T
 
 We are just going to steal the style sheet from the benchmark Todo app, and add it to our assets.
 
-**Go grab the file in this repo here:** https://github.com/JustinManno/todo-tutorial/blob/hyperloop/app/assets/stylesheets/todo.css
-and copy it to a new file called `app/assets/stylesheets/todo.css` 
+**Go grab the file in this repo here:** https://github.com/ruby-hyperloop/todo-tutorial/blob/master/app/assets/stylesheets/todo.css
+and copy it to a new file called `todo.css` in the `app/assets/stylesheets/` 
 
 You will have to refresh the page after changing the style sheet
 
