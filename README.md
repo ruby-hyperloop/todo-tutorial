@@ -148,6 +148,7 @@ Notice that we did not create any APIs to achieve this.  Data on the server is s
 Now that we have all of our pieces in place, lets build our application.
 
 Replace the entire contents of `app.rb` with:
+
 ```ruby
 # app/hyperloop/components/app.rb
 class App < Hyperloop::Component
@@ -162,6 +163,7 @@ end
 The browser screen will go blank because we have not defined the three subcomponents.  Lets define them now:
 
 Add three new ruby files to the `app/hyperloop/components` folder:
+
 ```ruby
 # app/hyperloop/components/header.rb
 class Header < Hyperloop::Component
@@ -170,6 +172,7 @@ class Header < Hyperloop::Component
   end
 end
 ```
+
 ```ruby
 # app/hyperloop/components/index.rb
 class Index < Hyperloop::Component
@@ -178,6 +181,7 @@ class Index < Hyperloop::Component
   end
 end
 ```
+
 ```ruby
 # app/hyperloop/components/footer.rb
 class Footer < Hyperloop::Component
@@ -186,6 +190,7 @@ class Footer < Hyperloop::Component
   end
 end
 ```
+
 Once you add the Footer component you should see:
 
   <div style="border:solid; margin-left: 10px; padding: 10px">
@@ -202,6 +207,7 @@ Notice how the usual HTML tags such as DIV, SECTION, and HEADER are all availabl
 ### Chapter 4: Listing the Todos, HyperReact Params, and Prerendering
 
 To display each Todo we will create a TodoItem component that takes a parameter:
+
 ```ruby
 # app/hyperloop/components/todo_item.rb
 class TodoItem < Hyperloop::Component
@@ -211,7 +217,9 @@ class TodoItem < Hyperloop::Component
   end
 end
 ```
+
 We can use this component in our Index component:
+
 ```ruby
 # app/hyperloop/components/index.rb
 class Index < Hyperloop::Component
@@ -224,6 +232,7 @@ class Index < Hyperloop::Component
   end
 end
 ```
+
 Now you will see something like
 
   <div style="border:solid; margin-left: 10px; padding: 10px">
@@ -264,6 +273,7 @@ class TodoItem < Hyperloop::Component
   end
 end
 ```
+
 Now your display should look like this:
 <div style="border:solid; margin-left: 10px; padding: 10px">
   <div>Header will go here</div>
@@ -304,6 +314,7 @@ It reads like a good novel doesn't it?  On a `click` event update the todo, sett
 Meanwhile HyperReact sees the value of `params.todo.checked` changing, and this causes the associated HTML INPUT tag to be re-rendered.
 
 We will finish up by adding a delete link at the end of the Todo item:
+
 ```ruby
 # app/hyperloop/components/todo_item.rb
 class TodoItem < Hyperloop::Component
@@ -316,6 +327,7 @@ class TodoItem < Hyperloop::Component
   end
 end
 ```
+
 *Note: If a component or tag block returns a string it is automatically wrapped in a SPAN, to insert a string in the middle you have to wrap it a SPAN like we did above.*
 
 I hope you are starting to see a pattern here.  HyperReact components determine what to display based on the `state` of some
@@ -339,6 +351,7 @@ class Todo < ApplicationRecord
   scope :active,    -> () { where(completed: false) }
 end
 ```
+
 Now we can say `Todo.all`, `Todo.completed`, and `Todo.active`, and get the desired subset of Todos.
 You might want to try it now in the rails console.  *Note: you will have to do a `reload!` to load the changes to the Model.*
 
@@ -352,6 +365,7 @@ We would like the URL of our App to reflect which of these *filters* is being di
 Having the application display different data (or whole different components) based on the URL is called routing.  
 
 Lets change `App` to look like this:
+
 ```ruby
 # app/hyperloop/components/app.rb
 class App < Hyperloop::Router
@@ -367,6 +381,7 @@ class App < Hyperloop::Router
 end
 ```
 and the `Index` component to look like this:
+
 ```ruby
 # app/hyperloop/components/index.rb
 class Index < Hyperloop::Router::Component
@@ -409,6 +424,7 @@ This is telling Rails to accept all requests and to process them using the `hype
 ### Chapter 7:  Helper Methods, Inline Styling, Active Support and Router Nav Links
 
 Of course we will want to add navigation to move between these routes.  We will put the navigation in the footer:
+
 ```ruby
 # app/hyperloop/components/footer.rb
 class Footer < Hyperloop::Component
@@ -437,10 +453,12 @@ To make this happen we will *mixin* some router helpers by *including* `HyperRou
 Then we can replace the anchor tag with the Router's `NavLink` component:
 
 Change
+
 ```ruby
   A(href: "/#{path}", style: {marginRight: 10}) { path.camelize }
 ```
 to
+
 ```ruby
   NavLink("/#{path}", style: {marginRight: 10}) { path.camelize }
 ```
@@ -470,6 +488,7 @@ Associated with this history is a (you guessed it I hope) *state*.  So when the 
 So far we can mark Todos as completed, delete them, and filter them.  Now we create an `EditItem` component so we can change the Todo title.
 
 Add a new component like this:
+
 ```ruby
 # app/hyperloop/components/edit_item.rb
 class EditItem < Hyperloop::Component
@@ -489,10 +508,12 @@ Before we use this component let's understand how it works.
 + When the user types the enter key (key code 13) the todo is saved.
 
 Now update the `TodoItem` component replacing
+
 ```ruby
   SPAN { params.todo.title }
 ```
 with
+
 ```ruby
   EditItem(todo: params.todo)
 ```
@@ -510,6 +531,7 @@ To summarize:
 + User changes focus away (`blur`) from the Todo being edited: editing changes to `false`.
 In order to accomplish this our `EditItem` component is going to communicate via two callbacks - `on_save` and `on_cancel` - with the parent component.  We can think of these callbacks as custom events, and indeed as we shall see they will work just like any other event.
 Add the following 5 lines to the `EditItem` component like this:
+
 ```ruby
 # app/hyperloop/components/edit_item.rb
 class EditItem < Hyperloop::Component
@@ -543,6 +565,7 @@ For example, if we had left off `type: Proc` we would have to say `params.on_sav
 Finally we add the `blur` event handler and simply transform it into our custom `cancel` event.
 
 Now we can update our `TodoItem` component to be a little state machine, which will react to three events:  `double_click`, `save` and `cancel`.
+
 ```ruby
 # app/hyperloop/components/todo_item.rb
 class TodoItem < Hyperloop::Component
@@ -586,6 +609,7 @@ Our EditItem component has a good robust interface.  It takes a Todo, and lets t
 Because of this we can easily reuse EditItem to create new Todos.  Not only does this save us time, but it also insures that the user interface acts consistently.
 
 Update the `Header` component to use EditItem like this:
+
 ```ruby
 # app/hyperloop/components/header.
 class Header < Hyperloop::Component
@@ -637,6 +661,7 @@ You will have to refresh the page after changing the style sheet.
 Now its a matter of updating the css classes which are passed to components via the `class` parameter.
 
 Let's start with the `App` component.  With styling it will look like this:
+
 ```ruby
 # app/hyperloop/components/app.rb
 class App < Hyperloop::Router
@@ -652,6 +677,7 @@ end
 ```
 The `Footer` components needs have a `UL` added to hold the links nicely,
 and we can also use the `NavLinks` `active_class` param to highlight the link that is currently active:
+
 ```ruby
 # app/hyperloop/components/footer.rb
 class Footer < Hyperloop::Component
@@ -672,6 +698,7 @@ class Footer < Hyperloop::Component
 end
 ```
 For the Index component just add the `main` and `todo-list` classes.
+
 ```ruby
 # app/hyperloop/components/index.rb
 class Index < Hyperloop::Router::Component
@@ -686,6 +713,7 @@ end
 ```
 For the EditItem component we want the caller specify the class.  To keep things compatible with React.js we need to call the param `className`,
 but we can still send it to EditItem with the usual hyperloop style `class` param.  
+
 ```ruby
 # app/hyperloop/components/edit_item.rb
 class EditItem < Hyperloop::Component
@@ -710,6 +738,7 @@ class EditItem < Hyperloop::Component
 end
 ```
 Now we can add classes to the TodoItem's list-item, input, anchor tags, and to the `EditItem` component:
+
 ```ruby
 # app/hyperloop/components/todo_item.rb
 class TodoItem < Hyperloop::Component
@@ -732,6 +761,7 @@ end
 ```
 In the Header we can send a different class to the `EditItem` component.  While we are at it
 we will add the `H1 { 'todos' }` hero unit.
+
 ```ruby
 # app/hyperloop/components/header.rb
 class Header < Hyperloop::Component
@@ -748,7 +778,8 @@ At this point your Todo App should be properly styled.
 ### Chapter 12: Other Features
 
 + **Show How Many Items Left In Footer**  
-This is just a span that we add before the link tags list in the Footer component:  
+This is just a span that we add before the link tags list in the Footer component: 
+
   ```ruby
   ...
   render(DIV, class: :footer) do
@@ -760,6 +791,7 @@ This is just a span that we add before the link tags list in the Footer componen
   ```
 + **Add 'placeholder' Text To Edit Item**  
 EditItem should display a meaningful placeholder hint if the title is blank:   
+
   ```ruby
     ...
     INPUT(
@@ -772,6 +804,7 @@ EditItem should display a meaningful placeholder hint if the title is blank:
   ```
 + **Don't Show the Footer If There are No Todos**  
 In the `App` component add a *guard* so that we won't show the Footer if there are no Todos:  
+
   ```ruby
   ...
       Footer() unless Todo.count.zero?
