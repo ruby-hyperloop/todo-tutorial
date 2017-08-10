@@ -4,6 +4,7 @@ In this tutorial you will build the classic [TodoMVC](http://todomvc.com) applic
 ![](http://ruby-hyperloop.io/images/tutorials/Hyperloop-Railstodomvc.gif)
 
 The finished application will
+
 1. have the ability to add and edit todos;
 2. be able change the complete/incomplete state;
 3. filter the list of displayed todos to show all, complete, or incomplete (active) todos;
