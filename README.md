@@ -1,7 +1,3 @@
----
-title: Tutorials, Videos & Quickstarts
----
-
 <div class="githubhyperloopheader">
 
 <p align="center">
