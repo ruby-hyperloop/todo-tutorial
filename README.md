@@ -30,6 +30,12 @@
 
 ![](http://ruby-hyperloop.io/images/tutorials/Hyperloop-Railstodomvc.gif)
 
+<img src="http://ruby-hyperloop.io/images/youtube-logo.jpg"> <b>Also follow the TodoMVC screencast:</b>
+
+<a href="https://www.youtube.com/watch?v=gtL4kAKUt_g" alt="TodoMVC screencast" title="TodoMVC screencast">
+<img src="http://ruby-hyperloop.io/images/tutorials/Hyperloop-Railstodomvc-youtube.png">
+</a>
+
 ### Prerequisites
 
 { [Ruby On Rails](http://rubyonrails.org/) }, { [hyperloop GEM](http://ruby-hyperloop.io) }
