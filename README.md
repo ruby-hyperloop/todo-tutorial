@@ -16,7 +16,7 @@
 <img src="http://ruby-hyperloop.io/images/githubhyperloopbadge.png">
 </a>
 
-<a href="http://ruby-hyperloop.io/tutorials/hyperlooprails/webpacker/" alt="Tutorial page" title="Tutorial page">
+<a href="http://ruby-hyperloop.io/tutorials/hyperlooprails/todo-tutorial/" alt="Tutorial page" title="Tutorial page">
 <img src="http://ruby-hyperloop.io/images/githubtutorialbadge.png">
 </a>
 
