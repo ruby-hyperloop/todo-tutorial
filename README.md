@@ -26,7 +26,7 @@
 
 </div>
 
-## <i class="flaticon-professor-teaching"></i><span class="bigfirstletter">H</span>yperloop TodoMVC Tutorial
+## Hyperloop TodoMVC Tutorial
 
 ![](http://ruby-hyperloop.org/images/tutorials/Hyperloop-Railstodomvc.gif)
 
