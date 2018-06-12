@@ -1,17 +1,16 @@
 <div class="githubhyperloopheader">
 
 <p align="center">
-
 <a href="http://ruby-hyperloop.org/" alt="Hyperloop" title="Hyperloop">
 <img width="350px" src="http://ruby-hyperloop.org/images/hyperloop-github-logo.png">
 </a>
-
 </p>
 
 <h2 align="center">The Complete Isomorphic Ruby Framework</h2>
 
 <br>
 
+<p align="center">
 <a href="http://ruby-hyperloop.org/" alt="Hyperloop" title="Hyperloop">
 <img src="http://ruby-hyperloop.org/images/githubhyperloopbadge.png">
 </a>
@@ -23,18 +22,15 @@
 <a href="https://gitter.im/ruby-hyperloop/chat" alt="Gitter chat" title="Gitter chat">
 <img src="http://ruby-hyperloop.org/images/githubgitterbadge.png">
 </a>
+</p>
 
 </div>
 
-## Hyperloop TodoMVC Tutorial
+<h2 align="center">Hyperloop TodoMVC Tutorial (Rails 5.2.0)</h2>
 
+<p align="center">
 ![](http://ruby-hyperloop.org/images/tutorials/Hyperloop-Railstodomvc.gif)
-
-<img src="http://ruby-hyperloop.org/images/youtube-logo.jpg"> <b>Also follow the TodoMVC screencast:</b>
-
-<a href="https://www.youtube.com/watch?v=gtL4kAKUt_g" alt="TodoMVC screencast" title="TodoMVC screencast">
-<img src="http://ruby-hyperloop.org/images/tutorials/Hyperloop-Railstodomvc-youtube.png">
-</a>
+</p>
 
 ### Prerequisites
 
@@ -55,7 +51,7 @@ The finished application will
 
 You will write less than 100 lines of code, and the tutorial should take about 1-2 hours to complete.
 
-You can find the final application source code here:<br>
+You can find the older application source code here:<br>
 
 <a href="https://github.com/ruby-hyperloop/todo-tutorial" alt="Tutorial source code" title="Tutorial source code">
 <img src="http://ruby-hyperloop.org/images/githubsourcecodebadge.png">
@@ -71,67 +67,65 @@ Working knowledge of Rails and Hyperloop required
 
 ### Chapter 1: Setting Things Up
 
-If you do not already have Git, Ruby, Rails, and bundler setup on your development machine then the easiest way to get started doing full stack development with Hyperloop is to use [Cloud9](http://c9.io).  
-
-Even if you are an experienced Rails developer there are some advantages to doing your first experiments on Cloud 9:
-
-+ You will get a consistent setup, which will avoid any possible configuration problems between linux/mac/windows OS versions, etc.
-+ Cloud9 supports co-development, so if you hit a snag it makes it even easier to get help from others.
-+ Your development server can be accessed by others through your unique cloud9 url so you can immediately show people on other machines the Hyperloop multi-client synchronization.
-
-Once you are comfortable with Hyperloop, transitioning your app back to your normal development environment is as easy as doing a git pull of your saved repo.
-
-**If you want to go ahead and setup hyperloop on your development machine (not using Cloud9) follow these [instructions.](https://github.com/ruby-hyperloop/rails-clone-and-go)**
-
-Otherwise continue for Cloud9 setup:
-
-**Step 1: Get a Cloud9 account**
-
-Go to Cloud 9's [website](http://c9.io)
-
-and signup for an account (you can use your github account for signup.) You will have to supply a credit card, but to our knowledge Cloud9 can be trusted!
-
-Make sure to Connect your Cloud9 account to your github account by going to settings (upper right corner) and clicking the connected services tab, click the connect button next to github and allow it access.
-
-**Step 2: Create Your New Workspace**
-
-You will be invited to create your first workspace. Cloud9 gives you one private workspace and any number of public workspaces. We recommend you use the public option for your first experiments.
-
-Put "`git@github.com:ruby-hyperloop/rails-clone-and-go.git`" into the field titled **"Clone from Git or Mercurial URL"**.
-
-Select the "Ruby on Rails" template type, and click the **[Create workspace]** button.
-
-**Step 3: Choose Your Branch**
-
-The Hyperloop clone and go repo has two branches: `master` and `thin`.  If you are running on the default Cloud9 512MB workspace
-then you should switch the `thin` branch before proceeding.  This will use a lot less resources (but will be using polling
-instead of ActionCable) for push communications.  To checkout the `thin` branch run 
-```bash
-git checkout thin
+Create a new rails application
+```ruby
+  rails _5.2.0_ new hyperloop_todo
 ```
-in the terminal (bash) window.
+_5.2.0_  will insure you are creating a rails 5.2 appear (tested with 5.0 and 5.1)
 
-**Step 4: Run the Setup Script**
+Add Hyperloop to your Gemfile
 
-Once your workspace is created you should see a readme displayed. Just follow the directions and run
+Until our official release, add the following to your Gemfile:
+```ruby
+  ...
+  # lap0 will use the latest release candidate
+  gem 'hyperloop', '~> 1.0.0.lap0', git: 'https://github.com/ruby-hyperloop/hyperloop.git', branch: 'edge'
+  gem 'hyperloop-config', '~> 1.0.0.lap0', git: 'https://github.com/ruby-hyperloop/hyperloop-config.git', branch: 'edge'
+  ...
+```
 
-`./bin/setup` in the terminal window to complete the initialization process.
+then
+```ruby
+  bundle install
+```
 
-**Make sure you do an `rvm use 2.3.1` when the script completes!!!**
+Once the Hyperloop Gem and all its dependencies have been installed, it's time to run the hyperloop install generator.
+```ruby
+  rails g hyperloop:install
+```
 
-**Step 5: Fire Up The Server**
+The generator creates the hyperloop structure inside the /app directory :
+```ruby
+  /app/hyperloop/
+  /app/hyperloop/components
+  /app/hyperloop/models
+  /app/hyperloop/operations
+  /app/hyperloop/stores
+```
 
-On cloud9 use the  
-  **[Run Project]**  
-command.
+And updates your app/assets/javascripts/application.js file adding these lines:
+```ruby
+  //= require hyperloop-loader
+  Opal.OpalHotReloader.$listen() // optional (port, false, poll_seconds) i.e. (8081, false, 1)
+```
 
-If outside of cloud9 in a terminal window run `./bin/hyperloop`
+To be sure everything is setting up correctly, check your app/assets/javascripts/application.js:
+```ruby
+  ...
+  //= require rails-ujs
+  //= require activestorage
+  //= require turbolinks
+  //= require_tree .
+  //= require hyperloop-loader
+  Opal.OpalHotReloader.$listen() // optional (port, false, poll_seconds) i.e. (8081, false, 1)
+```
 
-**Step 6: Visit the App**
+Run foreman
+```ruby
+  $ foreman start
+```
 
-On Cloud9 you can see the App running right in the IDE window by clicking on "preview" in the top nav bar, otherwise visit localhost:3000 in your browser.
-
-To see if you have everything setup correctly, find the `app/hyperloop/components/app.rb` file. In this file, you should be able to recognize the code printing out to the screen.  Try changing the string (and saving) and you should see the change instantly reflected in the browser or IDE preview screen.
+Navigate to the given location and you should see the word **App** displayed on the page.
 
 ### Chapter 2:  Hyperloop Models are Rails Models
 
@@ -150,53 +144,68 @@ automatically for you.  So now `Todo.all` can be evaluated on the server or the 
 Okay lets see it in action:
 
 1. **Add the Todo Model:**  
-  In the terminal window run **on a single line**:   
-    
-   `bundle exec rails g model Todo title:string completed:boolean priority:integer`   
+  In a new terminal window run **on a single line**:   
+  ```ruby
+    bundle exec rails g model Todo title:string completed:boolean priority:integer
+  ```
 
-   This runs a Rails *generator* which will create the skeleton Todo model class, and create a *migration* which will
-   add the necessary tables and columns to the database.  
-   
-   **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. The file will be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:    
-    ```ruby  
+  This runs a Rails *generator* which will create the skeleton Todo model class, and create a *migration* which will
+  add the necessary tables and columns to the database.  
+
+  **VERY IMPORTANT!** Now look in the db/migrate/ directory, and edit the migration file you have just created. The file will be titled with a long string of numbers then "create_todos" at the end. Change the line creating the completed boolean field so that it looks like this:
+  ```ruby  
     ...
-        t.boolean :completed, null: false, default: false
+    t.boolean :completed, null: false, default: false
     ...
-    ```  
-    For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)
-    Basically this insures `completed` is treated as a true boolean, and will avoid having to check between `false` and `null` later on.   
+  ```  
+  For details on 'why' see [this blog post.](https://robots.thoughtbot.com/avoid-the-threestate-boolean-problem)
+  Basically this insures `completed` is treated as a true boolean, and will avoid having to check between `false` and `null` later on.   
 
-    Now run `bundle exec rails db:migrate` which will create the table.
+  Now run
+  ```ruby
+    bundle exec rails db:migrate
+  ```
+  which will create the table.
 
-2. **Make your Model Public:**  
-  *Move* `todo.rb` to `app/hyperloop/models`.  
+2. **Make Some Models Public:**  
+  *Move* `models/todo.rb` and `models/application_record.rb` to `hyperloop/models`.  
 
    This will make the model accessible on the clients *and the server*, subject to any data access policies.  
-   
+
    *Note: The hyperloop installer adds a policy that gives full permission to all clients but only in development and test modes.  Have a look at `app/policies/application_policy` if you are interested.*
-   
-3. **Try It**    
-   Replace the current contents of `app/hyperloop/components/app.rb` with  
-   ```ruby
-   # app/hyperloop/components/app.rb
-   class App < Hyperloop::Component
+
+3. **Try It**
+  Change your `App` component's render method to:  
+  ```ruby
+    # app/hyperloop/components/app.rb
+    class App < Hyperloop::Component
      render(DIV) do
        "Number of Todos: #{Todo.count}"
      end
-   end
-   ```  
-   **Reload the page** you will see *Number of Todos: 0* displayed.  *You must reload the page as you have changed the class of App from `Router` to `Component`*
+    end
+  ```  
 
-   Now start a rails console (enter `bundle exec rails c` into a new terminal window) and type:  
-   `Todo.create(title: 'my first todo')`  
-   this is telling the server to create a new todo, which will update your hyperloop application, and you will see the count change to 1!   
+   **Reload the Page**
+   You will now see *Number of Todos: 0* displayed.  *You must reload the page as you have changed the class of App from `Router` to `Component`*
+
+   Now start a rails console
+   ```ruby
+    bundle exec rails c
+   ```
+   and type:  
+   ```ruby
+     Todo.create(title: 'my first todo')
+   ```  
+   This is telling the server to create a new todo, which will update your hyperloop application, and you will see the count change to 1!   
 
    Try it again:  
-   `Todo.create(title: 'my second todo')`  
+   ```ruby
+     Todo.create(title: 'my second todo')
+   ```  
    and you will see the count change to 2!   
 
 Are we having fun yet?  I hope so!  As you can see Hyperloop is synchronizing the Todo model between the client and server.  As the state of the database changes, HyperReact buzzes around updating whatever parts of the DOM were dependent on that data (in this case the count of Todos).
-  
+
 Notice that we did not create any APIs to achieve this.  Data on the server is synchronized with data on the client for you.
 
 ### Chapter 3: Creating the Top Level App Structure
@@ -224,7 +233,7 @@ Add three new ruby files to the `app/hyperloop/components` folder:
 # app/hyperloop/components/header.rb
 class Header < Hyperloop::Component
   render(HEADER) do
-    "Header will go here"
+    'Header will go here'
   end
 end
 ```
@@ -233,7 +242,7 @@ end
 # app/hyperloop/components/index.rb
 class Index < Hyperloop::Component
   render(SECTION) do
-    "list of Todos will go here"
+    'List of Todos will go here'
   end
 end
 ```
@@ -242,7 +251,7 @@ end
 # app/hyperloop/components/footer.rb
 class Footer < Hyperloop::Component
   render(DIV) do
-    "Footer will go here"
+    'Footer will go here'
   end
 end
 ```
@@ -251,7 +260,7 @@ Once you add the Footer component you should see:
 
   <div style="border:solid; margin-left: 10px; padding: 10px">
     <div>Header will go here</div>
-    <div>list of Todos will go here</div>  
+    <div>List of Todos will go here</div>  
     <div>Footer will go here</div>  
   </div>
   <br>
@@ -308,9 +317,13 @@ As you can see components can take parameters (or props in react.js terminology.
 Params are declared using the `param` macro and are accessed via the `params` object.
 In our case we *mount* a new TodoItem with each Todo record and pass the Todo as the parameter.   
 
-Now go back to Rails console and type `Todo.last.update(title: 'updated todo')` and you will see the last Todo in the list changing.
+Now go back to Rails console and type
+```ruby
+  Todo.last.update(title: 'updated todo')
+```
+and you will see the last Todo in the list changing.
 
-Try adding another Todo using `create` like you did before.  You will see the new Todo is added to the list.
+Try adding another Todo using `create` like you did before. You will see the new Todo is added to the list.
 
 
 ### Chapter 5: Adding Inputs to Components
@@ -330,29 +343,15 @@ class TodoItem < Hyperloop::Component
 end
 ```
 
-Now your display should look like this:
-<div style="border:solid; margin-left: 10px; padding: 10px">
-  <div>Header will go here</div>
-  <ul>
-    <li>
-      <input type="checkbox" value="on">
-      my first todo
-    </li>
-    <li>
-      <input type="checkbox" value="on">
-      my second todo
-    </li>
-  </ul>
-  <div>Footer will go here</div>
-</div>
-<br>
 You will notice that while it does display the checkboxes, you can not change them by clicking on them.
 
-For now we can change them via the console like we did before.  Try executing 
-`Todo.last.update(completed: true)`  
+For now we can change them via the console like we did before.  Try executing
+```ruby
+  Todo.last.update(completed: true)
+```  
 and you should see the last Todo's `completed` checkbox changing state.
 
-To make our checkbox input change its own state, we will add an `event handler` for the click event:
+To make our checkbox input change its own state, we will add an `event handler` for the change event:
 
 ```ruby
 # app/hyperloop/components/todo_item.rb
@@ -360,7 +359,7 @@ class TodoItem < Hyperloop::Component
   param :todo
   render(LI) do
     INPUT(type: :checkbox, checked: params.todo.completed)
-    .on(:click) { params.todo.update(completed: !params.todo.completed) }
+      .on(:click) { params.todo.update(completed: !params.todo.completed) }
     params.todo.title
   end
 end
@@ -377,7 +376,7 @@ class TodoItem < Hyperloop::Component
   param :todo
   render(LI) do
     INPUT(type: :checkbox, checked: params.todo.completed)
-    .on(:click) { params.todo.update(completed: !params.todo.completed) }
+      .on(:click) { params.todo.update(completed: !params.todo.completed) }
     SPAN { params.todo.title } # See note below...
     A { ' -X-' }.on(:click) { params.todo.destroy }
   end
@@ -425,7 +424,7 @@ Lets change `App` to look like this:
 ```ruby
 # app/hyperloop/components/app.rb
 class App < Hyperloop::Router
-  history :browser 
+  history :browser
   route do # note instead of render we use the route method
     SECTION do
       Header()
@@ -450,7 +449,7 @@ class Index < Hyperloop::Router::Component
   end
 end
 ```
-*Note that because we have changed the class of these components the hot reloader will break, and you will have to refresh the page.*
+*Note that because we have changed the class of these components the hot reloader will break, and you will have to refresh the page and possibly your local server.*
 
 Lets walk through the changes:
 + `App` now inherits from `Hyperloop::Router` which is a subclass of `Hyperloop::Component` with *router* capabilities added.
@@ -464,9 +463,9 @@ The other common option is the `:hash` history which tracks the history in the u
 + `Index` now inherits from `Hyperloop::Router::Component` which is a subclass of `Hyperloop::Component` with methods like `match` added.
 + Instead of simply enumerating all the Todos, we decide which *scope* to filter using the URL fragment *matched* by `:scope`.  
 
-Notice the relationship between `Route('/:scope', mounts: Index)` and `match.params[:scope]`: 
+Notice the relationship between `Route('/:scope', mounts: Index)` and `match.params[:scope]`:
 
-   During routing each `Route` is checked.  If it *matches* then the
+During routing each `Route` is checked.  If it *matches* then the
 indicated component is mounted, and the match parameters are saved for that component to use.
 
 You should now be able to change the url from `/all`, to `/completed`, to `/active`, and see a different set of Todos.  For example if you are displaying the `/active` Todos, you will only see the Todos that are not complete.  If you check one of these it will disappear from the list.
@@ -485,7 +484,7 @@ Of course we will want to add navigation to move between these routes.  We will 
 # app/hyperloop/components/footer.rb
 class Footer < Hyperloop::Component
   def link_item(path)
-    A(href: "/#{path}", style: {marginRight: 10}) { path.camelize }
+    A(href: "/#{path}", style: { marginRight: 10 }) { path.camelize }
   end
   render(DIV) do
     link_item(:all)
@@ -511,12 +510,12 @@ Then we can replace the anchor tag with the Router's `NavLink` component:
 Change
 
 ```ruby
-  A(href: "/#{path}", style: {marginRight: 10}) { path.camelize }
+  A(href: "/#{path}", style: { marginRight: 10 }) { path.camelize }
 ```
 to
 
 ```ruby
-  NavLink("/#{path}", style: {marginRight: 10}) { path.camelize }
+  NavLink("/#{path}", style: { marginRight: 10 }) { path.camelize }
 ```
 
 Our component should now look like this:
@@ -526,7 +525,7 @@ Our component should now look like this:
 class Footer < Hyperloop::Component
   include HyperRouter::ComponentMethods
   def link_item(path)
-    NavLink("/#{path}", style: {marginRight: 10}) { path.camelize }
+    NavLink("/#{path}", style: { marginRight: 10 }) { path.camelize }
   end
   render(DIV) do
     link_item(:all)
@@ -538,7 +537,7 @@ end
 After this change you will notice that changing routes *does not* reload the page, and after clicking to different routes, you can use the browsers forward and back buttons.
 
 How does it work?  The `NavLink` component reacts to a click just like an anchor tag, but instead of changing the window's URL directly, it updates the *HTML5 history object.*
-Associated with this history is a (you guessed it I hope) *state*.  So when the history changes it causes any components depending on the current URL to be re-rendered.
+Associated with this history is a (you guessed it, I hope) *state*.  So when the history changes it causes any components depending on the current URL to be re-rendered.
 
 ### Chapter 8: Create a Basic EditItem Component
 So far we can mark Todos as completed, delete them, and filter them.  Now we create an `EditItem` component so we can change the Todo title.
@@ -551,10 +550,10 @@ class EditItem < Hyperloop::Component
   param :todo
   render do
     INPUT(defaultValue: params.todo.title)
-    .on(:key_down) do |evt|
-      next unless evt.key_code == 13
-      params.todo.update(title: evt.target.value)
-    end
+      .on(:key_down) do |evt|
+        next unless evt.key_code == 13
+        params.todo.update(title: evt.target.value)
+      end
   end
 end
 ```
@@ -580,7 +579,7 @@ This all works, but its hard to use.  There is no feed back indicating that a To
 We can make the user interface much nicer by adding *state* (there is that word again) to the `TodoItem`.
 We will call our state `editing`.  If `editing` is true, then we will display the title in a `EditItem` component, otherwise we will display it in a `LABEL` tag.
 The user will change the state to `editing` by double clicking on the label.  When the user saves the Todo, we will change the state of `editing` back to false.
-Finally we will let the user *cancel* the edit by movig the focus away (the `blur` event) from the `EditItem`.
+Finally we will let the user *cancel* the edit by moving the focus away (the `blur` event) from the `EditItem`.
 To summarize:
 + User double clicks on any Todo title: editing changes to `true`.
 + User saves the Todo being edited: editing changes to `false`.
@@ -598,12 +597,12 @@ class EditItem < Hyperloop::Component
 
   render do
     INPUT(defaultValue: params.todo.title)
-    .on(:key_down) do |evt|
-      next unless evt.key_code == 13
-      params.todo.update(title: evt.target.value)
-      params.on_save                       # add
-    end
-    .on(:blur) { params.on_cancel }        # add
+      .on(:key_down) do |evt|
+        next unless evt.key_code == 13
+        params.todo.update(title: evt.target.value)
+        params.on_save                       # add
+      end
+      .on(:blur) { params.on_cancel }        # add
   end
 end
 ```
@@ -630,27 +629,27 @@ class TodoItem < Hyperloop::Component
   render(LI) do
     if state.editing
       EditItem(todo: params.todo)
-      .on(:save, :cancel) { mutate.editing false }
+        .on(:save, :cancel) { mutate.editing false }
     else
       INPUT(type: :checkbox, checked: params.todo.completed)
-      .on(:click) { params.todo.update(completed: !params.todo.completed) }
+        .on(:click) { params.todo.update(completed: !params.todo.completed) }
       LABEL { params.todo.title }
-      .on(:double_click) { mutate.editing true }
+        .on(:double_click) { mutate.editing true }
       A { ' -X-' }
-      .on(:click) { params.todo.destroy }
+        .on(:click) { params.todo.destroy }
     end
   end
 end
 ```
 First we declare a *state variable* called `editing` that is initialized to `false`.
 
-We have already used a lot of states that are built into the HyperModel and HyperRouter.  The state machines in these complex objects are built out of simple state variables like the `editing`.
+We have already used a lot of states that are built into the HyperModel and HyperRouter. The state machines in these complex objects are built out of simple state variables like the `editing`.
 
 State variables are *just like instance variables* with the added power that when they change, any dependent components will be updated with the change.
 
 You read a state variable using the `state` method (similar to the `params` method) and you change state variables using the `mutate` method.  Whenever you want to change a state variable whether its a simple assignment or changing the internal value of a complex structure like a hash or array you use the `mutate` method.
 
-Lets read on:  Next we see `if state.editing...`.  When the component executes this `if` statement, it reads the value of the `editing` state variable and will either render the `EditItem` or the input, label, and anchor tags.  In this way the `editing` state variable is acting no different than any other Ruby instance variable.  *But here is the key:  The component now knows that if the value of the editing state changes, it must re-render this TodoItem.  When state variables are referenced by a component the component will keep track of this, and will re-rerender when the state changes.*
+Lets read on:  Next, we see `if state.editing...`.  When the component executes this `if` statement, it reads the value of the `editing` state variable and will either render the `EditItem` or the input, label, and anchor tags.  In this way the `editing` state variable is acting no different than any other Ruby instance variable.  *But here is the key: The component now knows that if the value of the editing state changes, it must re-render this TodoItem.  When state variables are referenced by a component the component will keep track of this, and will re-rerender when the state changes.*
 
 Because `editing` starts off false, when the TodoItem first mounts, it renders the input, label, and anchor tags.  Attached to the label tag is a `double_click` handler which does one thing:  *mutates* the editing state.  This then causes the component to re-render, and now instead of the three tags, we will render the `EditItem` component.
 
@@ -672,7 +671,7 @@ class Header < Hyperloop::Component
   state(:new_todo) { Todo.new }
   render(HEADER) do
     EditItem(todo: state.new_todo)
-    .on(:save) { mutate.new_todo Todo.new }
+      .on(:save) { mutate.new_todo Todo.new }
   end
 end
 ```
@@ -695,15 +694,13 @@ new Todo records, but even though they are changing React *does not* update the 
 We can easily fix this by adding a `key` param to the `INPUT` that is associated with each unique Todo.
 In Ruby this is easy as every object has an `object_id` method that is guaranteed to return a unique value.
 
-Changing the value of the key, will inform React that we are refering to a new Todo, and thus a  new `INPUT` element will have to be mounted.
+Changing the value of the key, will inform React that we are referring to a new Todo, and thus a  new `INPUT` element will have to be mounted.
 
 ```ruby
-...
-    INPUT(defaultValue: params.todo.title, key: params.todo.object_id)
-...
+  ...
+  INPUT(defaultValue: params.todo.title, key: params.todo.object_id)
+  ...
 ```
-
-
 
 ### Chapter 11: Adding Styling
 
@@ -740,7 +737,7 @@ class Footer < Hyperloop::Component
   include HyperRouter::ComponentMethods
   def link_item(path)
     # wrap the NavLink in a LI and
-    # tell the NavLink to change the class to :selected when 
+    # tell the NavLink to change the class to :selected when
     # the current (active) path equals the NavLink's path.
     LI { NavLink("/#{path}", active_class: :selected) { path.camelize } }
   end
@@ -781,12 +778,12 @@ class EditItem < Hyperloop::Component
   render do
     # pass the className param as the INPUT's class
     INPUT(
-      class: params.className, 
-      defaultValue: params.todo.title, 
+      class: params.className,
+      defaultValue: params.todo.title,
       key: params.todo.object_id
     ).on(:key_down) do |evt|
       next unless evt.key_code == 13
-      params.todo.save
+      params.todo.update(title: evt.target.value)
       params.on_save
     end
     .on(:blur) { params.on_cancel }
@@ -803,14 +800,14 @@ class TodoItem < Hyperloop::Component
   render(LI, class: 'todo-item') do
     if state.editing
       EditItem(class: :edit, todo: params.todo)
-      .on(:save, :cancel) { mutate.editing false }
+        .on(:save, :cancel) { mutate.editing false }
     else
       INPUT(type: :checkbox, class: :toggle, checked: params.todo.completed)
-      .on(:click) { params.todo.update(completed: !params.todo.completed) }
+        .on(:click) { params.todo.update(completed: !params.todo.completed) }
       LABEL { params.todo.title }
-      .on(:double_click) { mutate.editing true }
+        .on(:double_click) { mutate.editing true }
       A(class: :destroy) # also remove the { '-X-' } placeholder
-      .on(:click) { params.todo.destroy }
+        .on(:click) { params.todo.destroy }
     end
   end
 end
@@ -825,7 +822,7 @@ class Header < Hyperloop::Component
   render(HEADER, class: :header) do                   # add the 'header' class
     H1 { 'todos' }                                    # Add the hero unit.
     EditItem(class: 'new-todo', todo: state.new_todo) # add 'new-todo' class
-    .on(:save) { mutate.new_todo Todo.new }
+      .on(:save) { mutate.new_todo Todo.new }
   end
 end
 ```
@@ -834,7 +831,7 @@ At this point your Todo App should be properly styled.
 ### Chapter 12: Other Features
 
 + **Show How Many Items Left In Footer**  
-This is just a span that we add before the link tags list in the Footer component: 
+This is just a span that we add before the link tags list in the Footer component:
 
   ```ruby
   ...
@@ -851,10 +848,10 @@ EditItem should display a meaningful placeholder hint if the title is blank:
   ```ruby
     ...
     INPUT(
-      class: params.className, 
+      class: params.className,
       defaultValue: params.todo.title,
       key: params.todo.object_id,
-      placeholder: "What is left to do today?"
+      placeholder: 'What is left to do today?'
     ).on(:key_down) do |evt| ...
     ...
   ```
@@ -894,7 +891,7 @@ The complete application is shown here:
 ```ruby
 # app/hyperloop/components/app.rb
 class App < Hyperloop::Router
-  history :browser 
+  history :browser
   route do # note instead of render we use the route method
     SECTION(class: 'todo-app') do
       Header()
@@ -911,7 +908,7 @@ class Header < Hyperloop::Component
   render(HEADER, class: :header) do
     H1 { 'todos' }
     EditItem(class: 'new-todo', todo: state.new_todo)
-    .on(:save) { mutate.new_todo Todo.new }
+      .on(:save) { mutate.new_todo Todo.new }
   end
 end
 
@@ -951,14 +948,13 @@ class TodoItem < Hyperloop::Component
   render(LI, class: 'todo-item') do
     if state.editing
       EditItem(todo: params.todo, class: :edit)
-      .on(:save, :cancel) { mutate.editing false }
+        .on(:save, :cancel) { mutate.editing false }
     else
       INPUT(type: :checkbox, class: :toggle, checked: params.todo.completed)
-      .on(:click) { params.todo.update(completed: !params.todo.completed) }
+        .on(:click) { params.todo.update(completed: !params.todo.completed) }
       LABEL { params.todo.title }
-      .on(:double_click) { mutate.editing true }
-      A(class: :destroy)
-      .on(:click) { params.todo.destroy }
+        .on(:double_click) { mutate.editing true }
+      A(class: :destroy).on(:click) { params.todo.destroy }
     end
   end
 end
@@ -973,10 +969,10 @@ class EditItem < Hyperloop::Component
 
   render do
     INPUT(
-      class: params.className, 
+      class: params.className,
       defaultValue: params.todo.title,
       key: params.todo.object_id,
-      placeholder: "What is left to do today?"
+      placeholder: 'What is left to do today?'
     ).on(:key_down) do |evt|
       next unless evt.key_code == 13
       params.todo.update(title: evt.target.value)
@@ -995,7 +991,8 @@ end
 # config/routes.rb
 Rails.application.routes.draw do
   mount Hyperloop::Engine => '/hyperloop'
-  get '/(*other)', to: 'hyperloop#app' # route everything to the App component
+  get '/(*other)', to: 'hyperloop#app'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 ```
 
@@ -1009,7 +1006,9 @@ end
 
 <hr>
 
-You can find the final application source code here:<br>
+You can find the final application source code here:
+
+<br>
 
 <a href="https://github.com/ruby-hyperloop/hyperloop-rails-webpackergem-helloworld" alt="Tutorial source code" title="Tutorial source code">
 <img src="http://ruby-hyperloop.org/images/githubsourcecodebadge.png">
@@ -1024,5 +1023,3 @@ The best way to get help and contribute is to join our Gitter Chat
 </a>
 
 </div>
-
-
